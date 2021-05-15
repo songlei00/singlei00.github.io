@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: songlei.me/sitemap.xml
+Sitemap: https://songlei.me/sitemap.xml

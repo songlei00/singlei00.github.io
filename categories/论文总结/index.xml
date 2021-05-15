@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>论文总结 on SongLei&#39;s Blog</title>
-    <link>songlei.me/categories/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/</link>
+    <link>https://songlei.me/categories/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/</link>
     <description>Recent content in 论文总结 on SongLei&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 01 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="songlei.me/categories/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/categories/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>5月论文总结</title>
-      <link>songlei.me/post/paper/202105/</link>
+      <link>https://songlei.me/post/paper/202105/</link>
       <pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>songlei.me/post/paper/202105/</guid>
+      <guid>https://songlei.me/post/paper/202105/</guid>
       <description>1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相</description>
     </item>
     
