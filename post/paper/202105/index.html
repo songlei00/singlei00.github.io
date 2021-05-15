@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="SongLei" /><meta name="description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相关像素的梯度的方法；在替换单词后如何保" /><meta name="keywords" content="AI, Sim2Real" />
+<meta name="author" content="SongLei" /><meta name="description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相" /><meta name="keywords" content="AI, Sim2Real" />
 
 
 
@@ -26,33 +26,33 @@
 <meta name="generator" content="Hugo 0.82.0 with theme even" />
 
 
-<link rel="canonical" href="https://songlei.me/post/paper/202105/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="songlei.me/post/paper/202105/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/songlei.me/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/songlei.me/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/songlei.me/favicon-16x16.png">
+<link rel="manifest" href="/songlei.me/manifest.json">
+<link rel="mask-icon" href="/songlei.me/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/songlei.me/sass/main.scss" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="5月论文总结" />
-<meta property="og:description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相关像素的梯度的方法；在替换单词后如何保" />
+<meta property="og:description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://songlei.me/post/paper/202105/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="songlei.me/post/paper/202105/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-05-01T00:00:00&#43;00:00" />
 <meta property="article:modified_time" content="2021-05-01T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="5月论文总结">
-<meta itemprop="description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相关像素的梯度的方法；在替换单词后如何保"><meta itemprop="datePublished" content="2021-05-01T00:00:00&#43;00:00" />
+<meta itemprop="description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"><meta itemprop="datePublished" content="2021-05-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-05-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1457">
+<meta itemprop="wordCount" content="2794">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="5月论文总结"/>
-<meta name="twitter:description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相关像素的梯度的方法；在替换单词后如何保"/>
+<meta name="twitter:description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -67,7 +67,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/" class="logo">Song Lei&#39;s blog</a>
+    <a href="/songlei.me/" class="logo">Song Lei&#39;s blog</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -77,13 +77,13 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="songlei.me/">
         <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
+      </a><a href="songlei.me/post/">
         <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
+      </a><a href="songlei.me/tags/">
         <li class="mobile-menu-item">Tags</li>
-      </a><a href="/me/">
+      </a><a href="songlei.me/me/">
         <li class="mobile-menu-item">Me</li>
       </a>
   </ul>
@@ -96,7 +96,7 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/" class="logo">Song Lei&#39;s blog</a>
+  <a href="/songlei.me/" class="logo">Song Lei&#39;s blog</a>
 </div>
 
 
@@ -106,13 +106,13 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="songlei.me/">Home</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="songlei.me/post/">Archives</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
+        <a class="menu-item-link" href="songlei.me/tags/">Tags</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/me/">Me</a>
+        <a class="menu-item-link" href="songlei.me/me/">Me</a>
       </li>
   </ul>
 </nav>
@@ -130,7 +130,7 @@
       <div class="post-meta">
         <span class="post-time"> 2021-05-01 </span>
         <div class="post-category">
-            <a href="/categories/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/"> 论文总结 </a>
+            <a href="/songlei.me/categories/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/"> 论文总结 </a>
             </div>
         
       </div>
@@ -145,8 +145,9 @@
       <ul>
         <li><a href="#1-discrete-adversarial-attacks-and-submodular-optimization-with-applications-to-text-classification">1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification</a></li>
         <li><a href="#2-parsimonious-black-box-adversarial-attacks-via-efficient-combinatorial-optimization">2. Parsimonious Black-Box Adversarial Attacks via Efficient Combinatorial Optimization</a></li>
-        <li><a href="#3-adversarial-examples-for-natural-language-classification-problems">3. Adversarial Examples For Natural Language Classification Problems</a></li>
-        <li><a href="#4-word-level">4. Word-level</a></li>
+        <li><a href="#3-word-level-textual-adversarial-attacking-as-combinatorial-optimization">3. Word-level Textual Adversarial Attacking as Combinatorial Optimization</a></li>
+        <li><a href="#4-adversarial-examples-for-natural-language-classification-problems">4. Adversarial Examples For Natural Language Classification Problems</a></li>
+        <li><a href="#5-black-box-adversarial-attacks-with-limited-queries-and-information">5. Black box Adversarial Attacks with Limited Queries and Information</a></li>
       </ul>
     </li>
   </ul>
@@ -155,6 +156,7 @@
 </div>
     <div class="post-content">
       <h2 id="1-discrete-adversarial-attacks-and-submodular-optimization-with-applications-to-text-classification">1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification</h2>
+<p>NLP，对抗样本，白盒，子模优化求解。</p>
 <p>文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相关像素的梯度的方法；在替换单词后如何保证语义、语法的正确性，并且不会替换太多的单词(改动尽量微小)；搜索空间大。</p>
 <p>本文是关于NLP中的对抗样本，将该问题形式化为子模优化，并使用梯度+贪心的方法求解，是白盒攻击，测试任务是对文档的分类，在句子和单词级别同时进行攻击，需要关注的问题是：如何形式化子模优化问题，如何选择搜索空间，如何涉及高效算法。</p>
 <ol>
@@ -172,12 +174,26 @@
 <p>实验上与另外的一篇使用相同网络的文章进行了比较。</p>
 <p>不足：1是所有的实验都是在两个简单的网络上进行，并且只和一篇论文进行了比较，并不够充分。但这也是一个共性的问题：在复杂模型上，无法证明网络函数是子模的，只能通过实验得出使用子模优化算法和比较好效果的baseline差的不多，在简单模型上，实验又不够充分。2是对抗训练的评估应该怎么评估，使用方法A进行对抗训练，又使用A再次攻击，发现攻击成功率变低，能否说明对抗训练是有效果的呢。</p>
 <h2 id="2-parsimonious-black-box-adversarial-attacks-via-efficient-combinatorial-optimization">2. Parsimonious Black-Box Adversarial Attacks via Efficient Combinatorial Optimization</h2>
-<p>对图片的黑盒攻击，使用子模优化的方式求解。</p>
-<p>不足：无法证明神经网络的近似子模性，只通过实验说明使用贪心求解算法或Local Search和PGD效果差不多这一实验得到神经网络函数满足近似子模性是不够的。</p>
+<p>CV，对抗样本，黑盒，子模优化求解。</p>
 <ol>
-<li>问题形式化：将图像添加随机扰动的问题，形式化为像素的选择问题。</li>
+<li>
+<p>问题形式化：假定只可以获得网络的loss(cross entropy)，将图像添加随机扰动的问题，形式化为像素的选择问题。</p>
+<p>首先，在白盒攻击中，可以利用泰勒展式，将优化问题转化为$\max_{x_{adv}}x_{adv}^T \nabla _x l(x, y), s.t. -\epsilon 1 \leq x_{adv} - x \leq \epsilon 1$。这是一个LP问题，最优解在可行域的边界取得(但因为使用了近似的问题，所以少部分解不在边界，文中通过运行PGD得到对抗样本，验证大部分噪声都是取$\pm \epsilon$)。所以将黑盒攻击中的优化问题$\max_{x_{adv}}f(x_{adv}), s.t. ||x_{adv}-x||_{\infty}\leq \epsilon$转化为$\max_{x_{adv}}f(x_{adv}), s.t. x_{adv}-x\in {\epsilon, -\epsilon}^p$。</p>
+<p>该问题等价于$\max_{S\subseteq V}  F(S) = f(x + \epsilon \sum_{i\in S}e_i -  \epsilon \sum_{i\in V/S}e_i)$，直观上，该函数选择一部分点作为$S$施加$\epsilon$的噪声，其余点加$-\epsilon$噪声。是NP hard问题，但因为满足近似子模性(文中以贪心或局部搜索算法得到的解与PGD得到的解差不多证明)，可以高效获得近似解。</p>
+</li>
+<li>
+<p>算法：贪心求解算法是每轮对所有的为插入的像素点，计算$\Delta(e|S)$，加入最大的一个，直到最大的$\Delta(e|S)&lt;0$，删除也是同理，删除，$\Delta^-(e|S)=F(S/ {e}) - F(s)$，直到小于0。但这样每轮都需要计算所有的点的$\Delta$值，代价大，所以文中使用了一种lazy的插入删除，使用最大堆维护所有像素点之前的$\Delta$值，然后取堆顶点重新计算$\Delta$，如果值比原来的值(原来的值因为是堆顶元素，所以是所有值的上界)都大，则进行插入或删除。Lazy的算法每轮只需要计算一个像素点，所以有很大的速度提升。整体算法是进行N轮的lazy贪心插入和lazy贪心删除，得到集合$S$。</p>
+<p>Hierarchical lazy evaluation，在lazy的基础上，原文使用了一种分块的方法进行进一步加速。选择分块大小为$k$，然后上面的贪心算法中，集合元素为block，每次添加删除都是以block为单位进行。不断减小$k$，直到$k=1$。</p>
+</li>
+<li>
+<p>实验：在小数据集cifer10和大数据集imagenet上进行了target和untarget的对经过对抗训练的网络和未经过对抗训练的网络的攻击，以及不同超参数设置下的实验。比较了成功率，平均访问量和访问量的中位数，都有很大的提升。</p>
+</li>
 </ol>
-<h2 id="3-adversarial-examples-for-natural-language-classification-problems">3. Adversarial Examples For Natural Language Classification Problems</h2>
+<p>不足：1是实验不公平，在对比的算法中，虽然都是黑盒设定，但本文的算法需要获得所有的类别的概率，才能计算cross entropy，其他算法则在更少的信息下，就可以work(具体见TODO)，所以无法判断是因为使用了更多信息使得性能更好，还是算法本身更好。2是文中的证明多是与实验假设无关的证明，而与实验有关的假设都是通过实验验证的。比如无法证明神经网络的近似子模性，文中只证明了一个近似子模函数的界，但无法说明神经网络和子模函数有多接近，只通过实验说明使用贪心求解算法或Local Search和PGD效果差不多这一实验得到神经网络函数满足近似子模性是不够的。</p>
+<h2 id="3-word-level-textual-adversarial-attacking-as-combinatorial-optimization">3. Word-level Textual Adversarial Attacking as Combinatorial Optimization</h2>
+<p>NLP，对抗样本，PSO算法求解。</p>
+<p>通过sememe based单词替换生成对抗样本和使用PSO算法求解</p>
+<h2 id="4-adversarial-examples-for-natural-language-classification-problems">4. Adversarial Examples For Natural Language Classification Problems</h2>
 <p>这篇文章是1的基础，应该是NLP对抗样本中一篇比较早的工作，1的工作主要是对该文章内容的改进。大部分内容在1中都有提及。</p>
 <ol>
 <li>
@@ -187,7 +203,8 @@
 <p>算法：贪心替换。只在word level进行了替换，具体方法是，对于句子中每一个词贪心的尝试使用可行的同义词进行替换，然后在替换后的所有句子中，找到一个使得优化目标最大的，作为下一轮的输入。</p>
 </li>
 </ol>
-<h2 id="4-word-level">4. Word-level</h2>
+<h2 id="5-black-box-adversarial-attacks-with-limited-queries-and-information">5. Black box Adversarial Attacks with Limited Queries and Information</h2>
+<p>本文是对黑盒的图像分类神经网络的攻击，要求更加严格(query次数有限，不完全信息，只能获得label而不是loss函数)，使用梯度估计的方法求解。</p>
 
     </div>
 
@@ -208,11 +225,11 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/">论文总结</a>
+          <a href="/songlei.me/tags/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/">论文总结</a>
           </div>
       <nav class="post-nav">
         
-        <a class="next" href="/post/ai/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/">
+        <a class="next" href="songlei.me/post/ai/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/">
             <span class="next-text nav-default">强化学习面试准备</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -234,7 +251,7 @@
       <div class="social-links">
       <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
       <a href="https://github.com/s974534426" class="iconfont icon-github" title="github"></a>
-  <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -269,7 +286,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/songlei.me/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
   <script type="text/javascript">
     window.MathJax = {
       tex: {

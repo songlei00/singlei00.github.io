@@ -1,155 +1,155 @@
-<?xml-stylesheet type="text/xsl" href="https://songlei.me/sitemap.xsl"?>
+<?xml-stylesheet type="text/xsl" href="songlei.me/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://songlei.me/me/</loc>
+    <loc>songlei.me/me/</loc>
     <lastmod>2020-10-28T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/post/paper/202105/</loc>
+    <loc>songlei.me/post/paper/202105/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/categories/</loc>
+    <loc>songlei.me/categories/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/post/</loc>
+    <loc>songlei.me/post/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/</loc>
+    <loc>songlei.me/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/tags/</loc>
+    <loc>songlei.me/tags/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/tags/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/</loc>
+    <loc>songlei.me/tags/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/categories/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/</loc>
+    <loc>songlei.me/categories/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
+    <loc>songlei.me/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
     <lastmod>2021-04-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
+    <loc>songlei.me/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
     <lastmod>2021-04-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>songlei.me/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2021-04-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>songlei.me/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2021-04-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/post/ai/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/</loc>
+    <loc>songlei.me/post/ai/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/</loc>
     <lastmod>2021-04-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/</loc>
+    <loc>songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/</loc>
     <lastmod>2020-10-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/tags/%E9%BB%91%E7%A7%91%E6%8A%80/</loc>
+    <loc>songlei.me/tags/%E9%BB%91%E7%A7%91%E6%8A%80/</loc>
     <lastmod>2020-10-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/categories/%E9%BB%91%E7%A7%91%E6%8A%80/</loc>
+    <loc>songlei.me/categories/%E9%BB%91%E7%A7%91%E6%8A%80/</loc>
     <lastmod>2020-10-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/post/nao/4_%E4%BD%BF%E7%94%A8bhuman/</loc>
+    <loc>songlei.me/post/nao/4_%E4%BD%BF%E7%94%A8bhuman/</loc>
     <lastmod>2020-10-10T00:00:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/tags/nao/</loc>
+    <loc>songlei.me/tags/nao/</loc>
     <lastmod>2020-10-10T00:00:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/categories/nao/</loc>
+    <loc>songlei.me/categories/nao/</loc>
     <lastmod>2020-10-10T00:00:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/post/nao/3_%E5%AE%89%E8%A3%85bhuman%E7%B3%BB%E7%BB%9F/</loc>
+    <loc>songlei.me/post/nao/3_%E5%AE%89%E8%A3%85bhuman%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2020-10-10T00:00:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/post/nao/1_nao%E5%88%B7%E6%9C%BA%E5%8F%8A%E8%BF%9E%E6%8E%A5/</loc>
+    <loc>songlei.me/post/nao/1_nao%E5%88%B7%E6%9C%BA%E5%8F%8A%E8%BF%9E%E6%8E%A5/</loc>
     <lastmod>2020-10-10T00:00:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://songlei.me/post/nao/0_%E7%AE%80%E4%BB%8B/</loc>
+    <loc>songlei.me/post/nao/0_%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2020-10-10T00:00:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
