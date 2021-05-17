@@ -49,7 +49,7 @@
 <meta itemprop="name" content="5月论文总结">
 <meta itemprop="description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"><meta itemprop="datePublished" content="2021-05-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-05-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2813">
+<meta itemprop="wordCount" content="3917">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="5月论文总结"/>
 <meta name="twitter:description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"/>
@@ -191,7 +191,22 @@
 </ol>
 <p>不足：1是实验不公平，在对比的算法中，虽然都是黑盒设定，但本文的算法需要获得所有的类别的概率，才能计算cross entropy，其他算法则在更少的信息下，就可以work(具体见TODO)，所以无法判断是因为使用了更多信息使得性能更好，还是算法本身更好。2是文中的证明多是与实验假设无关的证明，而与实验有关的假设都是通过实验验证的。比如无法证明神经网络的近似子模性，文中只证明了一个近似子模函数的界，但无法说明神经网络和子模函数有多接近，只通过实验说明使用贪心求解算法或Local Search和PGD效果差不多这一实验得到神经网络函数满足近似子模性是不够的。</p>
 <h2 id="3-word-level-textual-adversarial-attacking-as-combinatorial-optimization">3. Word-level Textual Adversarial Attacking as Combinatorial Optimization</h2>
-<p>本文针对NLP对抗样本问题中搜索空间过大和求解算法不高效的问题，提出了sememe based生成对抗样本生成方式和使用PSO算法求解。</p>
+<p>Word-level的对抗攻击问题实际是组合优化的问题(从有限的单词候选中选择组成对抗样本)。本文从组合优化的角度，将问题求解分为减小搜索空间和搜索组成对抗样本两步，分别使用sememe based(sememe是语言的最小语义单元，可以看做是一个词的语义label，如HowNet是一个常用的sememe知识库)生成对抗样本生成方式和使用PSO算法求解。黑盒设定。</p>
+<p>PSO：population叫做swarm，individual叫做particle，每一个particle有position和velocity属性，每一个position通过评估函数可以得到相应的分数，一个individual历史达到的最高分数的位置为individual best position，而所有individuals中的最高分数的位置为global best position。更新时，使用历史最好位置和个体最好位置进行更新：$v_d^n = wv_d^n + c_1 * r_1 * (p_d^n-x_d^n)+c_2 * r_2 * (p_d^g-x_d^n), x_d^n=x_d^n+v_d^n$，$c_1, c_2$是常数，控制粒子向最优点移动的速度，$r_1, r_2$是随机数。</p>
+<ol>
+<li>
+<p>使用sememe based的方法找到的替换词，相比embedding方法和语言模型找到的替换题在语义上更相近，使用更相似，质量更高，相比同义词替换，找到的词更多，搜索范围更大。在替换时，为了保持语法的正确性，只替换content words</p>
+</li>
+<li>
+<p>PSO求解：形式化：每个position对应一个句子，每个维度是一个单词；评估函数是目标label的概率；速度与位置的改变概率相关，$v_d^n$表示$w_d^n$被替换为其他单词的概率。算法流程：初始化：随机替换原句子中一个单词作为初始位置，随机产生速度；更新阶段：速度更新公式$v_d^n = wv_d^n+(1-w)[I(p_d^n, x_d^n) + I(p_d^n, x_d^n)]$，位置更新方式，使用概率化的方式处理离散的位置更新问题，首先根据$P_i = P_{max} - \frac{t}{T}*(P_{max} - P_{min})$决定是否移动到局部最优，如果移动，则根据$softmax(v_d^n)$判断每个维度是否移动，然后根据$P_g = P_{min} + \frac{t}{T}*(P_{max} - P_{min})$决定是否移动到全局最优，如果移动，则同样根据$softmax(v_d^n)$判断。更新后，使用mutation算子，进行变异。</p>
+</li>
+<li>
+<p>实验：在情感分析和自然语言inference(给定两个句子，判断关系是entailment、contradiction、neutral)任务进行，相比于1，攻击了更强的BiLSTM和BERT模型。</p>
+<p>进行了decomposition analysis，通过将减少搜索空间和搜索算法两个部分进行任意组合。</p>
+<p>NLP的对抗样本任务中，似乎一般都会提一下transferability和adversarial。</p>
+</li>
+</ol>
+<p>方法的局限性在于，因为是word-level的替换，生成的对抗样本的长度和原句子长度是相等的。</p>
 <h2 id="4-adversarial-examples-for-natural-language-classification-problems">4. Adversarial Examples For Natural Language Classification Problems</h2>
 <p>这篇文章是1的基础，应该是NLP对抗样本中一篇比较早的工作，1的工作主要是对该文章内容的改进。大部分内容在1中都有提及。</p>
 <ol>
