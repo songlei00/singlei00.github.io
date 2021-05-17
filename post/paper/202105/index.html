@@ -49,7 +49,7 @@
 <meta itemprop="name" content="5月论文总结">
 <meta itemprop="description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"><meta itemprop="datePublished" content="2021-05-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-05-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2794">
+<meta itemprop="wordCount" content="2813">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="5月论文总结"/>
 <meta name="twitter:description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"/>
@@ -191,8 +191,7 @@
 </ol>
 <p>不足：1是实验不公平，在对比的算法中，虽然都是黑盒设定，但本文的算法需要获得所有的类别的概率，才能计算cross entropy，其他算法则在更少的信息下，就可以work(具体见TODO)，所以无法判断是因为使用了更多信息使得性能更好，还是算法本身更好。2是文中的证明多是与实验假设无关的证明，而与实验有关的假设都是通过实验验证的。比如无法证明神经网络的近似子模性，文中只证明了一个近似子模函数的界，但无法说明神经网络和子模函数有多接近，只通过实验说明使用贪心求解算法或Local Search和PGD效果差不多这一实验得到神经网络函数满足近似子模性是不够的。</p>
 <h2 id="3-word-level-textual-adversarial-attacking-as-combinatorial-optimization">3. Word-level Textual Adversarial Attacking as Combinatorial Optimization</h2>
-<p>NLP，对抗样本，PSO算法求解。</p>
-<p>通过sememe based单词替换生成对抗样本和使用PSO算法求解</p>
+<p>本文针对NLP对抗样本问题中搜索空间过大和求解算法不高效的问题，提出了sememe based生成对抗样本生成方式和使用PSO算法求解。</p>
 <h2 id="4-adversarial-examples-for-natural-language-classification-problems">4. Adversarial Examples For Natural Language Classification Problems</h2>
 <p>这篇文章是1的基础，应该是NLP对抗样本中一篇比较早的工作，1的工作主要是对该文章内容的改进。大部分内容在1中都有提及。</p>
 <ol>
@@ -204,7 +203,7 @@
 </li>
 </ol>
 <h2 id="5-black-box-adversarial-attacks-with-limited-queries-and-information">5. Black box Adversarial Attacks with Limited Queries and Information</h2>
-<p>本文是对黑盒的图像分类神经网络的攻击，要求更加严格(query次数有限，不完全信息，只能获得label而不是loss函数)，使用梯度估计的方法求解。</p>
+<p>本文是对黑盒的图像分类神经网络的攻击，要求更加严格(query次数有限，不完全信息，只能获得label而不是loss函数)，使用NES算法进行梯度估计。</p>
 
     </div>
 
