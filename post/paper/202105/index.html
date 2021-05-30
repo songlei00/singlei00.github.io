@@ -49,7 +49,7 @@
 <meta itemprop="name" content="5月论文总结">
 <meta itemprop="description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"><meta itemprop="datePublished" content="2021-05-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-05-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3917">
+<meta itemprop="wordCount" content="4524">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="5月论文总结"/>
 <meta name="twitter:description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"/>
@@ -147,7 +147,8 @@
         <li><a href="#2-parsimonious-black-box-adversarial-attacks-via-efficient-combinatorial-optimization">2. Parsimonious Black-Box Adversarial Attacks via Efficient Combinatorial Optimization</a></li>
         <li><a href="#3-word-level-textual-adversarial-attacking-as-combinatorial-optimization">3. Word-level Textual Adversarial Attacking as Combinatorial Optimization</a></li>
         <li><a href="#4-adversarial-examples-for-natural-language-classification-problems">4. Adversarial Examples For Natural Language Classification Problems</a></li>
-        <li><a href="#5-black-box-adversarial-attacks-with-limited-queries-and-information">5. Black box Adversarial Attacks with Limited Queries and Information</a></li>
+        <li><a href="#5-black-box-adversarial-attacks-with-limited-queries-and-information">5. Black Box Adversarial Attacks with Limited Queries and Information</a></li>
+        <li><a href="#6-explaining-and-harnessing-adversarial-examples">6. Explaining And Harnessing Adversarial Examples</a></li>
       </ul>
     </li>
   </ul>
@@ -217,8 +218,23 @@
 <p>算法：贪心替换。只在word level进行了替换，具体方法是，对于句子中每一个词贪心的尝试使用可行的同义词进行替换，然后在替换后的所有句子中，找到一个使得优化目标最大的，作为下一轮的输入。</p>
 </li>
 </ol>
-<h2 id="5-black-box-adversarial-attacks-with-limited-queries-and-information">5. Black box Adversarial Attacks with Limited Queries and Information</h2>
+<h2 id="5-black-box-adversarial-attacks-with-limited-queries-and-information">5. Black Box Adversarial Attacks with Limited Queries and Information</h2>
 <p>本文是对黑盒的图像分类神经网络的攻击，要求更加严格(query次数有限，不完全信息，只能获得label而不是loss函数)，使用NES算法进行梯度估计。</p>
+<h2 id="6-explaining-and-harnessing-adversarial-examples">6. Explaining And Harnessing Adversarial Examples</h2>
+<p>本文解释对抗攻击是由于模型(不只是神经网络，还有其他的)的线性特征，并利用线性提出了一种高效的对抗攻击算法FSGM。分析对抗样本产生的原因，对抗训练的作用。</p>
+<ol>
+<li>
+<p>线性模型的对抗样本：在高维情况下，最简单的线性模型$wx$也会因为小的扰动产生巨大的偏差，即$w^T\widetilde{x} = w^Tx + w^T\eta, \eta = \epsilon sign(w)$，在$w$维度足够大时，每个很小的$\epsilon$也能造成很大的$w^T\eta$，与原结果偏离过大，产生对抗样本。</p>
+<p>FGSM：$\eta = \epsilon sign(\nabla_x J(\theta, x, y)), x' = x + \eta$。</p>
+</li>
+<li>
+<p>对抗训练：使用对抗样本的原样本同时训练，使得模型在$\epsilon$扰动的情况下，依然可以输出同样的解。提供了一种不同于dropout的正则化的效果，提高模型的鲁棒性。</p>
+<p>有两个问题，一是这种对抗训练得到的模型应该是只对使用$\epsilon$扰动的攻击有效，有效的原因我认为只是因为训练集中多了对抗样本，要求模型在有$\epsilon$扰动时也能最小化，但其他的攻击方式应该是依然很容易攻击的(如果有的话)；二是如果对抗训练使用一个很小的$\epsilon$训练，但攻击使用略大的$\epsilon$，那么对抗训练是否依然有效。</p>
+</li>
+<li>
+<p>对抗攻击的特点：即使是最简单的线性模型也会受到对抗攻击；在某个模型上生成的对抗样本在其他不同架构、从不同训练集训练得到的模型上都有一定效果；对输入的扰动和中间层的扰动是否都有对抗训练的效果。</p>
+</li>
+</ol>
 
     </div>
 
