@@ -6,7 +6,7 @@
     <description>Recent content on SongLei&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 01 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Me</title>
       <link>https://songlei.me/me/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://songlei.me/me/</guid>
       <description>Me 😂TODO</description>
+    </item>
+    
+    <item>
+      <title>6月论文总结</title>
+      <link>https://songlei.me/post/paper/202106/</link>
+      <pubDate>Tue, 01 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/paper/202106/</guid>
+      <description>1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 加速方法： 使用无梯度优化的方法攻击的优势</description>
     </item>
     
     <item>
