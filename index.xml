@@ -22,7 +22,7 @@
       <pubDate>Tue, 01 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>https://songlei.me/post/paper/202106/</guid>
-      <description>1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 加速方法： 使用无梯度优化的方法攻击的优势</description>
+      <description>1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t</description>
     </item>
     
     <item>

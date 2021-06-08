@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="SongLei" /><meta name="description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 加速方法： 使用无梯度优化的方法攻击的优势" /><meta name="keywords" content="AI, Sim2Real" />
+<meta name="author" content="SongLei" /><meta name="description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t" /><meta name="keywords" content="AI, Sim2Real" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="6月论文总结" />
-<meta property="og:description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 加速方法： 使用无梯度优化的方法攻击的优势" />
+<meta property="og:description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://songlei.me/post/paper/202106/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-06-01T00:00:00&#43;00:00" />
 <meta property="article:modified_time" content="2021-06-01T00:00:00&#43;00:00" />
 
 <meta itemprop="name" content="6月论文总结">
-<meta itemprop="description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 加速方法： 使用无梯度优化的方法攻击的优势"><meta itemprop="datePublished" content="2021-06-01T00:00:00&#43;00:00" />
+<meta itemprop="description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"><meta itemprop="datePublished" content="2021-06-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-06-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="483">
+<meta itemprop="wordCount" content="967">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="6月论文总结"/>
-<meta name="twitter:description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 加速方法： 使用无梯度优化的方法攻击的优势"/>
+<meta name="twitter:description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -154,9 +154,22 @@
       <h2 id="1-genattack-pratical-black-box-attacks-with-gradient-free-optimization">1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization</h2>
 <p>使用遗传算法求解对图像分类器的黑盒定向攻击问题。</p>
 <p>算法整体比较简单，完全是GA的框架。</p>
+<ol>
+<li>Fitness函数设计为增大目标类别$t$的概率，同时减小其他类别$j\neq t$的概率，并使用$\log$减少数值误差：$\log f(x)<em>t - \log \sum</em>{j\neq t} f(x)_j$。</li>
+<li>对初始图像各个像素添加均匀分布$(-\delta_{max}, \delta_{max})$的随机扰动；</li>
+<li>选择时保留精英并对其他个体使用softmax的方式选择其他个体</li>
+<li>crossover时根据两个父代的fitness随机选择$p = \frac{fitness(p_1)}{fitness(p_1) + fitness(p_2)}$</li>
+<li>mutation为在某个小范围内随机采样并施加到每个像素上，并进行$clip(-\delta_{max}, \delta_{max})$操作</li>
+</ol>
 <p>加速方法：</p>
+<ol>
+<li>Dimensionality Reduction：图片维度高，处理慢，所以通过在低维空间产生噪声$e_{adv} \in [0, 1]^{d'}$，通过bilinear resize的方式转化到高维空间$[0, 1]^d$，加速处理。
+双线性插值：</li>
+<li>Adaptive Parameter Scaling：对mutation的两个参数(mutation range和mutation rate)在多轮没有改进的情况下，进行衰减(退火)。</li>
+</ol>
 <p>使用无梯度优化的方法攻击的优势：自然的适用于黑盒攻击；对于经过对抗训练的模型往往也会有很好的效果(一般的对抗训练都是使用白盒攻击产生对抗样本的，似乎只能防御通过类似方式产生的样本，比如使用$l_{\infty}$进行训练只能防御$l_{\infty}$产生的样本，猜的)，所以无梯度的攻击方法能够成功攻击各种对梯度做防御的网络。</p>
-<p>防御的方法：对抗训练、gradient masking、obfuscation</p>
+<p>防御的方法：对抗训练、gradient masking、obfuscation。</p>
+<p>总结：主要是遗传算法的应用，以及第一种通过插值的方式从低维空间产生高维噪声的加速方式很不错。</p>
 <blockquote>
 <p>总结(黑盒对抗攻击)</p>
 <ol>
