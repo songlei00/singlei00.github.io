@@ -49,7 +49,7 @@
 <meta itemprop="name" content="6月论文总结">
 <meta itemprop="description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"><meta itemprop="datePublished" content="2021-06-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-06-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="967">
+<meta itemprop="wordCount" content="961">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="6月论文总结"/>
 <meta name="twitter:description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"/>
@@ -163,9 +163,12 @@
 </ol>
 <p>加速方法：</p>
 <ol>
-<li>Dimensionality Reduction：图片维度高，处理慢，所以通过在低维空间产生噪声$e_{adv} \in [0, 1]^{d'}$，通过bilinear resize的方式转化到高维空间$[0, 1]^d$，加速处理。
-双线性插值：</li>
-<li>Adaptive Parameter Scaling：对mutation的两个参数(mutation range和mutation rate)在多轮没有改进的情况下，进行衰减(退火)。</li>
+<li>
+<p>Dimensionality Reduction：图片维度高，处理慢，所以通过在低维空间产生噪声$e_{adv} \in [0, 1]^{d'}$，通过bilinear resize的方式转化到高维空间$[0, 1]^d$，加速处理。</p>
+</li>
+<li>
+<p>Adaptive Parameter Scaling：对mutation的两个参数(mutation range和mutation rate)在多轮没有改进的情况下，进行衰减(退火)。</p>
+</li>
 </ol>
 <p>使用无梯度优化的方法攻击的优势：自然的适用于黑盒攻击；对于经过对抗训练的模型往往也会有很好的效果(一般的对抗训练都是使用白盒攻击产生对抗样本的，似乎只能防御通过类似方式产生的样本，比如使用$l_{\infty}$进行训练只能防御$l_{\infty}$产生的样本，猜的)，所以无梯度的攻击方法能够成功攻击各种对梯度做防御的网络。</p>
 <p>防御的方法：对抗训练、gradient masking、obfuscation。</p>
