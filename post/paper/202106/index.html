@@ -49,7 +49,7 @@
 <meta itemprop="name" content="6月论文总结">
 <meta itemprop="description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"><meta itemprop="datePublished" content="2021-06-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-06-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="961">
+<meta itemprop="wordCount" content="1085">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="6月论文总结"/>
 <meta name="twitter:description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"/>
@@ -144,6 +144,7 @@
     <li>
       <ul>
         <li><a href="#1-genattack-pratical-black-box-attacks-with-gradient-free-optimization">1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization</a></li>
+        <li><a href="#2-zoo-zeroth-order-optimization-based-black-box-attacks-to-deep-neural-networks-without-training-substitute-models">2. ZOO: Zeroth Order Optimization Based Black-box Attacks to Deep Neural Networks without Training Substitute Models</a></li>
       </ul>
     </li>
   </ul>
@@ -173,6 +174,9 @@
 <p>使用无梯度优化的方法攻击的优势：自然的适用于黑盒攻击；对于经过对抗训练的模型往往也会有很好的效果(一般的对抗训练都是使用白盒攻击产生对抗样本的，似乎只能防御通过类似方式产生的样本，比如使用$l_{\infty}$进行训练只能防御$l_{\infty}$产生的样本，猜的)，所以无梯度的攻击方法能够成功攻击各种对梯度做防御的网络。</p>
 <p>防御的方法：对抗训练、gradient masking、obfuscation。</p>
 <p>总结：主要是遗传算法的应用，以及第一种通过插值的方式从低维空间产生高维噪声的加速方式很不错。</p>
+<h2 id="2-zoo-zeroth-order-optimization-based-black-box-attacks-to-deep-neural-networks-without-training-substitute-models">2. ZOO: Zeroth Order Optimization Based Black-box Attacks to Deep Neural Networks without Training Substitute Models</h2>
+<p>使用梯度估计的方法解决黑盒图像样本攻击的问题，提出了ZOO算法。</p>
+<p>只知道输入和输出的score</p>
 <blockquote>
 <p>总结(黑盒对抗攻击)</p>
 <ol>
@@ -180,7 +184,7 @@
 <p>目前比较好的黑盒攻击方法主要有基于梯度评估(通过输入差分的方式，估计网络梯度，再利用梯度按照白盒的方法求解，比如ZOO)，基于替代网络(用一个网络近似)，使用无梯度优化方法(使用演化算法直接求解，近似为子模问题使用贪心算法)。</p>
 </li>
 <li>
-<p>使用无梯度优化的方法这个方向效果看起来还是比较好的，之前的工作比较少且比较新，并且上面的文献都集中在近一两年。</p>
+<p>使用无梯度优化的方法这个方向效果看起来还是比较好的，之前的工作比较少且比较新，并且上面的文献都集中在近一两年。图像和文本攻击都不错，图像的工作相对多一点，文本的工作更难，但这种方法应该是非常自然的可以用于文本攻击的方法，感觉更有前景。</p>
 </li>
 <li>
 <p>使用演化算法求解问题时，算法框架基本是确定的，主要探究的地方还是各种加速或提升效率的trick。</p>
