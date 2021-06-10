@@ -49,7 +49,7 @@
 <meta itemprop="name" content="5月论文总结">
 <meta itemprop="description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"><meta itemprop="datePublished" content="2021-05-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-05-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="4524">
+<meta itemprop="wordCount" content="4438">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="5月论文总结"/>
 <meta name="twitter:description" content="1. Discrete Adversarial Attacks and Submodular Optimization with Applications to Text Classification NLP，对抗样本，白盒，子模优化求解。 文本输入的对抗样本任务的难点是无法使用像图像攻击那样的通过修改某几个像素计算相"/>
@@ -147,8 +147,7 @@
         <li><a href="#2-parsimonious-black-box-adversarial-attacks-via-efficient-combinatorial-optimization">2. Parsimonious Black-Box Adversarial Attacks via Efficient Combinatorial Optimization</a></li>
         <li><a href="#3-word-level-textual-adversarial-attacking-as-combinatorial-optimization">3. Word-level Textual Adversarial Attacking as Combinatorial Optimization</a></li>
         <li><a href="#4-adversarial-examples-for-natural-language-classification-problems">4. Adversarial Examples For Natural Language Classification Problems</a></li>
-        <li><a href="#5-black-box-adversarial-attacks-with-limited-queries-and-information">5. Black Box Adversarial Attacks with Limited Queries and Information</a></li>
-        <li><a href="#6-explaining-and-harnessing-adversarial-examples">6. Explaining And Harnessing Adversarial Examples</a></li>
+        <li><a href="#5-explaining-and-harnessing-adversarial-examples">5. Explaining And Harnessing Adversarial Examples</a></li>
       </ul>
     </li>
   </ul>
@@ -218,9 +217,7 @@
 <p>算法：贪心替换。只在word level进行了替换，具体方法是，对于句子中每一个词贪心的尝试使用可行的同义词进行替换，然后在替换后的所有句子中，找到一个使得优化目标最大的，作为下一轮的输入。</p>
 </li>
 </ol>
-<h2 id="5-black-box-adversarial-attacks-with-limited-queries-and-information">5. Black Box Adversarial Attacks with Limited Queries and Information</h2>
-<p>本文是对黑盒的图像分类神经网络的攻击，要求更加严格(query次数有限，不完全信息，只能获得label而不是loss函数)，使用NES算法进行梯度估计。</p>
-<h2 id="6-explaining-and-harnessing-adversarial-examples">6. Explaining And Harnessing Adversarial Examples</h2>
+<h2 id="5-explaining-and-harnessing-adversarial-examples">5. Explaining And Harnessing Adversarial Examples</h2>
 <p>本文解释对抗攻击是由于模型(不只是神经网络，还有其他的)的线性特征，并利用线性提出了一种高效的对抗攻击算法FSGM。分析对抗样本产生的原因，对抗训练的作用。</p>
 <ol>
 <li>
@@ -288,6 +285,28 @@
   <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("10/01/2020 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
 <div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
@@ -306,6 +325,11 @@
     2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
   </span>
 </div>
+
+
+
+
+
 
     </footer>
 

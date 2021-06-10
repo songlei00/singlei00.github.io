@@ -6,7 +6,16 @@
     <description>Recent content in Posts on SongLei&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 01 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 10 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>网站底部添加运行时间</title>
+      <link>https://songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Thu, 10 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</guid>
+      <description>&lt;p&gt;在网站的底部添加网站运行时间的代码。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>6月论文总结</title>
       <link>https://songlei.me/post/paper/202106/</link>

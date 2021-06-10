@@ -122,6 +122,27 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/nao/4_%E4%BD%BF%E7%94%A8bhuman/">4. 使用BHuman</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-10-10 </span>
+      <div class="post-category">
+          <a href="/categories/nao/"> NAO </a>
+          </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      1. 使用bush和simRobot 与机器人的交互主要是通过bush和simRobot，bush主要用来部署代码，设置机器人等，simRobot
+    </div>
+    <div class="read-more">
+      <a href="/post/nao/4_%E4%BD%BF%E7%94%A8bhuman/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/nao/3_%E5%AE%89%E8%A3%85bhuman%E7%B3%BB%E7%BB%9F/">3. 安装BHuman系统</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-10-10 </span>
@@ -205,6 +226,28 @@
   <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("10/01/2020 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
 <div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
@@ -223,6 +266,11 @@
     2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
   </span>
 </div>
+
+
+
+
+
 
     </footer>
 

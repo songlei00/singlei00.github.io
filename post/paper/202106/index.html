@@ -49,7 +49,7 @@
 <meta itemprop="name" content="6月论文总结">
 <meta itemprop="description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"><meta itemprop="datePublished" content="2021-06-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-06-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1085">
+<meta itemprop="wordCount" content="2422">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="6月论文总结"/>
 <meta name="twitter:description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"/>
@@ -145,6 +145,7 @@
       <ul>
         <li><a href="#1-genattack-pratical-black-box-attacks-with-gradient-free-optimization">1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization</a></li>
         <li><a href="#2-zoo-zeroth-order-optimization-based-black-box-attacks-to-deep-neural-networks-without-training-substitute-models">2. ZOO: Zeroth Order Optimization Based Black-box Attacks to Deep Neural Networks without Training Substitute Models</a></li>
+        <li><a href="#3-black-box-adversarial-attacks-with-limited-queries-and-information">3. Black Box Adversarial Attacks with Limited Queries and Information</a></li>
       </ul>
     </li>
   </ul>
@@ -156,7 +157,7 @@
 <p>使用遗传算法求解对图像分类器的黑盒定向攻击问题。</p>
 <p>算法整体比较简单，完全是GA的框架。</p>
 <ol>
-<li>Fitness函数设计为增大目标类别$t$的概率，同时减小其他类别$j\neq t$的概率，并使用$\log$减少数值误差：$\log f(x)<em>t - \log \sum</em>{j\neq t} f(x)_j$。</li>
+<li>Fitness函数设计为增大目标类别$t$的概率，同时减小其他类别$j\neq t$的概率，并使用$\log$减少数值误差：$F(x) = \log f(x)<em>t - \log \sum</em>{j\neq t} f(x)_j$。</li>
 <li>对初始图像各个像素添加均匀分布$(-\delta_{max}, \delta_{max})$的随机扰动；</li>
 <li>选择时保留精英并对其他个体使用softmax的方式选择其他个体</li>
 <li>crossover时根据两个父代的fitness随机选择$p = \frac{fitness(p_1)}{fitness(p_1) + fitness(p_2)}$</li>
@@ -164,24 +165,44 @@
 </ol>
 <p>加速方法：</p>
 <ol>
-<li>
-<p>Dimensionality Reduction：图片维度高，处理慢，所以通过在低维空间产生噪声$e_{adv} \in [0, 1]^{d'}$，通过bilinear resize的方式转化到高维空间$[0, 1]^d$，加速处理。</p>
-</li>
-<li>
-<p>Adaptive Parameter Scaling：对mutation的两个参数(mutation range和mutation rate)在多轮没有改进的情况下，进行衰减(退火)。</p>
-</li>
+<li>Dimensionality Reduction：图片维度高，处理慢，所以通过在低维空间产生噪声$e_{adv} \in [0, 1]^{d'}$，通过bilinear resize的方式转化到高维空间$[0, 1]^d$，加速处理。</li>
+<li>Adaptive Parameter Scaling：对mutation的两个参数(mutation range和mutation rate)在多轮没有改进的情况下，进行衰减(退火)。</li>
 </ol>
 <p>使用无梯度优化的方法攻击的优势：自然的适用于黑盒攻击；对于经过对抗训练的模型往往也会有很好的效果(一般的对抗训练都是使用白盒攻击产生对抗样本的，似乎只能防御通过类似方式产生的样本，比如使用$l_{\infty}$进行训练只能防御$l_{\infty}$产生的样本，猜的)，所以无梯度的攻击方法能够成功攻击各种对梯度做防御的网络。</p>
 <p>防御的方法：对抗训练、gradient masking、obfuscation。</p>
 <p>总结：主要是遗传算法的应用，以及第一种通过插值的方式从低维空间产生高维噪声的加速方式很不错。</p>
 <h2 id="2-zoo-zeroth-order-optimization-based-black-box-attacks-to-deep-neural-networks-without-training-substitute-models">2. ZOO: Zeroth Order Optimization Based Black-box Attacks to Deep Neural Networks without Training Substitute Models</h2>
-<p>使用梯度估计的方法解决黑盒图像样本攻击的问题，提出了ZOO算法。</p>
-<p>只知道输入和输出的score</p>
+<p>使用梯度估计的方法解决黑盒图像样本攻击的问题，提出了ZOO算法，要求模型可以输出每一个类别的置信度。</p>
+<p>算法思路：思想很简单，使用差分的方法，梯度等于$\frac{f(x+h) - f(x-h)}{2h}$。然后利用梯度和白盒攻击方法C&amp;W方法生成对抗样本。</p>
+<ol>
+<li>C&amp;W：问题形式化：$\min_x ||x-x_0||^2+c f(x, t), s.t. x\in [0, 1]^p$。第一项是正则化项，保证对抗样本和原数据差别不大，第二项中$t$是目标类别，$f(x, t) = \max { \max_{i\neq t}[Z(x)]_i-[Z(x)]_t, -\kappa }$，$Z(x)_i$是softmax前一层的输出结果(也许是因为进行softmax之前数值比较大，优化快吧)，$\kappa$越大，transferability越大，文中取$\kappa=0$，当第一项小于0时，表示攻击是成功的。约束条件保证对抗样本是合法的图像，可以通过令$x = \frac{1+\tanh w}{2}$，使得约束一定满足(但在一些情况下会造成梯度消失)，原问题变为无约束优化问题，可以使用梯度下降等方法求解。</li>
+<li>黑盒攻击：将上面优化问题中黑盒设置下无法获得的项转化为可以获得的项
+<ol>
+<li>$Z(x)<em>i$是中间层的输出，无法获得。替换为$f(x) = \max{\max</em>{i\neq t}\log[F(x)]_i - \log[F(x)]_t, -\kappa}$，$F$为softmax后的输出，可以获得。(可以通过简单的变化，将优化问题转化为untarget attacks)。</li>
+<li>优化时使用的梯度信息无法获得。使用差分的方式求，$g = \frac{\partial f(x)}{\partial x_i} = \frac{f(x+he_i) - f(x-he_i)}{2h}$，$h = \frac{\partial^2 f(x)}{\partial^2 x_{ii}^2} = \frac{f(x+he_i)-2f(x)+f(x-he_i)}{h^2}$得到某个维度上的梯度，重复2p次可以得到所有维度上的梯度，但计算代价过大。使用coordinate descent的方法，每次随机挑选一个维度，计算量为2p，计算梯度$\delta^*, x_i = x_i + \delta^*$。文中对于梯度$\delta^*$的计算分别使用了Adam和牛顿法。</li>
+</ol>
+</li>
+</ol>
+<p>加速方法</p>
+<ol>
+<li>Dimension reduction：在低维度空间$R^m$中生成噪声，通过映射，转化到高维度$R^p$，例如通过双线性插值。</li>
+<li>Hierarchical attack：使用1的技巧后，可能无法在低维度中找到合适的噪声，所以提出了逐渐增大$m$，假设从$D: R^m\rightarrow R^p$。当loss不再下降时，增大噪声维度，通过$y = D_i^{-1}(D_{i-1}(y))$的方式，产生新的噪声(即先将低维度噪声投影到高维中，再通过新的逆映射投影到低维中)</li>
+<li>Importance sampling：使用coordinate descent时，可以选择重要的维度，优先优化。对每个区域内的像素，根据最近几轮中像素值改变的剧烈程度，赋予不同的采样概率，对变化剧烈的区域，提高概率。</li>
+</ol>
+<p>实验中关注的指标是攻击成功率以及对抗样本和原图像的$l_2$距离(指示生成对抗样本的质量)。</p>
+<p>总结：提出了通过差分的方式估计模型梯度的方法，以及加速方法，不需要训练替代模型。其中前两种加速方法似乎很常见也很好用，可以学习一下。</p>
+<h2 id="3-black-box-adversarial-attacks-with-limited-queries-and-information">3. Black Box Adversarial Attacks with Limited Queries and Information</h2>
+<p>本文是对黑盒的图像分类神经网络的攻击，要求更加严格(query次数有限，不完全信息，只能获得label而不是loss函数)，使用NES算法进行梯度估计。</p>
 <blockquote>
 <p>总结(黑盒对抗攻击)</p>
 <ol>
 <li>
-<p>目前比较好的黑盒攻击方法主要有基于梯度评估(通过输入差分的方式，估计网络梯度，再利用梯度按照白盒的方法求解，比如ZOO)，基于替代网络(用一个网络近似)，使用无梯度优化方法(使用演化算法直接求解，近似为子模问题使用贪心算法)。</p>
+<p>目前图像分类中的黑盒攻击方法主要有：</p>
+<ol>
+<li>Gradient estimation：(通过输入差分的方式，估计网络梯度，再利用梯度按照白盒的方法求解，比如ZOO)</li>
+<li>Substitute model：(用一个网络近似，这种方法缺点比较明显，1是无法确定网络的具体结构，没有一个合适的范式，很多paper中都是使用和被攻击模型相同的网络结构，很不合理，2是攻击时利用了transferability性质，会造成精度的损失)</li>
+<li>使用其他例如优化方法(演化算法、近似为子模问题使用贪心算法)。</li>
+</ol>
 </li>
 <li>
 <p>使用无梯度优化的方法这个方向效果看起来还是比较好的，之前的工作比较少且比较新，并且上面的文献都集中在近一两年。图像和文本攻击都不错，图像的工作相对多一点，文本的工作更难，但这种方法应该是非常自然的可以用于文本攻击的方法，感觉更有前景。</p>
@@ -214,7 +235,11 @@
           <a href="/tags/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/">论文总结</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/%E9%BB%91%E7%A7%91%E6%8A%80/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">网站底部添加运行时间</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/paper/202105/">
             <span class="next-text nav-default">5月论文总结</span>
             <span class="next-text nav-mobile">下一篇</span>
@@ -240,6 +265,28 @@
   <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("10/01/2020 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
 <div class="copyright">
   <span class="power-by">
     由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
@@ -258,6 +305,11 @@
     2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
   </span>
 </div>
+
+
+
+
+
 
     </footer>
 
