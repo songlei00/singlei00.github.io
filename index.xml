@@ -10,10 +10,19 @@
     <item>
       <title>Me</title>
       <link>https://songlei.me/me/</link>
-      <pubDate>Wed, 28 Oct 2020 00:00:00 +0800</pubDate>
+      <pubDate>Fri, 11 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>https://songlei.me/me/</guid>
       <description>Me 😂TODO</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu休眠后重启黑屏</title>
+      <link>https://songlei.me/post/bug/ubuntu%E4%BC%91%E7%9C%A0%E5%90%8E%E9%87%8D%E5%90%AF%E9%BB%91%E5%B1%8F/</link>
+      <pubDate>Thu, 10 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/bug/ubuntu%E4%BC%91%E7%9C%A0%E5%90%8E%E9%87%8D%E5%90%AF%E9%BB%91%E5%B1%8F/</guid>
+      <description>&lt;p&gt;Ubuntu休眠后重启黑屏问题。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -55,46 +64,19 @@
     <item>
       <title>Python爬虫刷博客访问量</title>
       <link>https://songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/</link>
-      <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>https://songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/</guid>
       <description>&lt;p&gt;使用Python爬虫刷不蒜子统计的博客访问人数和访问量。&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>4. 使用BHuman</title>
-      <link>https://songlei.me/post/nao/4_%E4%BD%BF%E7%94%A8bhuman/</link>
-      <pubDate>Sat, 10 Oct 2020 00:00:05 +0800</pubDate>
+      <title>NAO机器人使用</title>
+      <link>https://songlei.me/post/nao/nao%E6%9C%BA%E5%99%A8%E4%BA%BA/</link>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://songlei.me/post/nao/4_%E4%BD%BF%E7%94%A8bhuman/</guid>
-      <description>1. 使用bush和simRobot 与机器人的交互主要是通过bush和simRobot，bush主要用来部署代码，设置机器人等，simRobot</description>
-    </item>
-    
-    <item>
-      <title>3. 安装BHuman系统</title>
-      <link>https://songlei.me/post/nao/3_%E5%AE%89%E8%A3%85bhuman%E7%B3%BB%E7%BB%9F/</link>
-      <pubDate>Sat, 10 Oct 2020 00:00:04 +0800</pubDate>
-      
-      <guid>https://songlei.me/post/nao/3_%E5%AE%89%E8%A3%85bhuman%E7%B3%BB%E7%BB%9F/</guid>
-      <description>1. 安装软件 首先安装操作系统，建议使用Ubuntu14.04，与文档保持一致。因为安装更高版本的系统的话，使用apt下载的包版本与原来使用的版</description>
-    </item>
-    
-    <item>
-      <title>1. NAO刷机及连接</title>
-      <link>https://songlei.me/post/nao/1_nao%E5%88%B7%E6%9C%BA%E5%8F%8A%E8%BF%9E%E6%8E%A5/</link>
-      <pubDate>Sat, 10 Oct 2020 00:00:02 +0800</pubDate>
-      
-      <guid>https://songlei.me/post/nao/1_nao%E5%88%B7%E6%9C%BA%E5%8F%8A%E8%BF%9E%E6%8E%A5/</guid>
-      <description>1. NAO刷机教程 准备U盘，nao操作系统镜像(.opn文件)，NAOFlasher 以管理员身份打开flasher：在bin目录下sudo ./flasher 在</description>
-    </item>
-    
-    <item>
-      <title>0. 简介</title>
-      <link>https://songlei.me/post/nao/0_%E7%AE%80%E4%BB%8B/</link>
-      <pubDate>Sat, 10 Oct 2020 00:00:01 +0800</pubDate>
-      
-      <guid>https://songlei.me/post/nao/0_%E7%AE%80%E4%BB%8B/</guid>
-      <description>1. NAO机器人是什么 NAO是软银公司开发的一种机器人平台，集成了各类传感器，例如摄像头，声音，避障等等。我们可以在NAO上使用这些传感器对环</description>
+      <guid>https://songlei.me/post/nao/nao%E6%9C%BA%E5%99%A8%E4%BA%BA/</guid>
+      <description>0. 简介 1. NAO机器人是什么 NAO是软银公司开发的一种机器人平台，集成了各类传感器，例如摄像头，声音，避障等等。我们可以在NAO上使用这些传感</description>
     </item>
     
   </channel>
