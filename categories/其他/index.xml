@@ -13,7 +13,7 @@
       <pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://songlei.me/post/code/python%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/</guid>
-      <description>后台运行：使用nohup命令，nohup python3 -u run.py &amp;gt; log_output 2&amp;gt;&amp;amp;1 &amp;amp;，运行run.py文件，并将输入输出重定向，其中-u使得python不会将输出</description>
+      <description></description>
     </item>
     
     <item>
