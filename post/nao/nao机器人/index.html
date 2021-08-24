@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.82.0 with theme even" />
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
 
 
 <link rel="canonical" href="https://songlei.me/post/nao/nao%E6%9C%BA%E5%99%A8%E4%BA%BA/" />
@@ -35,7 +35,7 @@
 
 
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -43,12 +43,12 @@
 <meta property="og:description" content="0. 简介 1. NAO机器人是什么 NAO是软银公司开发的一种机器人平台，集成了各类传感器，例如摄像头，声音，避障等等。我们可以在NAO上使用这些传感" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://songlei.me/post/nao/nao%E6%9C%BA%E5%99%A8%E4%BA%BA/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-03-02T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2021-03-02T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2021-03-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-03-02T00:00:00+00:00" />
 
 <meta itemprop="name" content="NAO机器人使用">
-<meta itemprop="description" content="0. 简介 1. NAO机器人是什么 NAO是软银公司开发的一种机器人平台，集成了各类传感器，例如摄像头，声音，避障等等。我们可以在NAO上使用这些传感"><meta itemprop="datePublished" content="2021-03-02T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-03-02T00:00:00&#43;00:00" />
+<meta itemprop="description" content="0. 简介 1. NAO机器人是什么 NAO是软银公司开发的一种机器人平台，集成了各类传感器，例如摄像头，声音，避障等等。我们可以在NAO上使用这些传感"><meta itemprop="datePublished" content="2021-03-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-03-02T00:00:00+00:00" />
 <meta itemprop="wordCount" content="2336">
 <meta itemprop="keywords" content="NAO," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="NAO机器人使用"/>
@@ -141,34 +141,30 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#0-简介">0. 简介</a>
       <ul>
-        <li><a href="#0-简介">0. 简介</a>
-          <ul>
-            <li><a href="#1-nao机器人是什么">1. NAO机器人是什么</a></li>
-            <li><a href="#2-我们要做什么">2. 我们要做什么</a></li>
-            <li><a href="#3-我们会学到什么">3. 我们会学到什么</a></li>
-          </ul>
-        </li>
-        <li><a href="#1-nao刷机及连接">1. NAO刷机及连接</a>
-          <ul>
-            <li><a href="#1-nao刷机教程">1. NAO刷机教程</a></li>
-            <li><a href="#2-连接nao">2. 连接NAO</a></li>
-            <li><a href="#3-胸前按钮">3. 胸前按钮</a></li>
-          </ul>
-        </li>
-        <li><a href="#3-安装bhuman系统">3. 安装Bhuman系统</a>
-          <ul>
-            <li><a href="#1-安装软件">1. 安装软件</a></li>
-            <li><a href="#2-添加机器人">2. 添加机器人</a></li>
-          </ul>
-        </li>
-        <li><a href="#3-使用bhuman">3. 使用Bhuman</a>
-          <ul>
-            <li><a href="#1-使用bush和simrobot">1. 使用bush和simRobot</a></li>
-            <li><a href="#2-调试">2. 调试</a></li>
-          </ul>
-        </li>
+        <li><a href="#1-nao机器人是什么">1. NAO机器人是什么</a></li>
+        <li><a href="#2-我们要做什么">2. 我们要做什么</a></li>
+        <li><a href="#3-我们会学到什么">3. 我们会学到什么</a></li>
+      </ul>
+    </li>
+    <li><a href="#1-nao刷机及连接">1. NAO刷机及连接</a>
+      <ul>
+        <li><a href="#1-nao刷机教程">1. NAO刷机教程</a></li>
+        <li><a href="#2-连接nao">2. 连接NAO</a></li>
+        <li><a href="#3-胸前按钮">3. 胸前按钮</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-安装bhuman系统">3. 安装Bhuman系统</a>
+      <ul>
+        <li><a href="#1-安装软件">1. 安装软件</a></li>
+        <li><a href="#2-添加机器人">2. 添加机器人</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-使用bhuman">3. 使用Bhuman</a>
+      <ul>
+        <li><a href="#1-使用bush和simrobot">1. 使用bush和simRobot</a></li>
+        <li><a href="#2-调试">2. 调试</a></li>
       </ul>
     </li>
   </ul>
@@ -176,21 +172,21 @@
   </div>
 </div>
     <div class="post-content">
-      <h2 id="0-简介">0. 简介</h2>
-<h3 id="1-nao机器人是什么">1. NAO机器人是什么</h3>
+      <h1 id="0-简介">0. 简介</h1>
+<h2 id="1-nao机器人是什么">1. NAO机器人是什么</h2>
 <p>NAO是软银公司开发的一种机器人平台，集成了各类传感器，例如摄像头，声音，避障等等。我们可以在NAO上使用这些传感器对环境进行感知，然后做出相应决策。</p>
 <p>NAO机器人提供了多种编程的方式，常用的是图形化、c++、python三种控制方法。编程时可以通过特定的库函数，获取环境状态，然后进行一系列处理，最后对各类控制器发送控制信号，实现某些功能。</p>
-<h3 id="2-我们要做什么">2. 我们要做什么</h3>
+<h2 id="2-我们要做什么">2. 我们要做什么</h2>
 <p>我们主要是使用NAO机器人进行高尔夫球比赛，其中涉及了图像识别、运动控制等知识，之后可能会进行足球比赛，足球更加复杂，涉及到更加复杂的图像识别技术、通信交流、多智能体系统等等。</p>
 <p>使用的框架代码来自BHuman，BHuman代码使用了c++，并对NAO本身提供的API进行了进一步的封装，使得我们可以先忽略底层的一些控制而关注于更加高层的知识，比如逻辑、图像识别等等。</p>
 <p>BHuman本身是用于踢足球的，本身没有高尔夫球赛中需要的对红球和球杆的识别，上一届已经完成了绝大部分的任务，所以后面只需要熟悉代码，进行调试，在遇到一些之前没有出现的bug后进行修补就可以了。所以目前要做的是<strong>熟悉流程和原来的代码</strong>，然后进行优化和改进(并不需要太多的编程，因为BHuman将逻辑使用宏封装成了一种叫做CABSL的十分简单的语言)。之后有时间的话再将代码迁移到新版本的NAO v6上。</p>
-<h3 id="3-我们会学到什么">3. 我们会学到什么</h3>
+<h2 id="3-我们会学到什么">3. 我们会学到什么</h2>
 <p>首先是<strong>计算机视觉</strong>的基础知识，因为涉及到红球、黄色的球杆的识别，所以需要用到一些图像处理的知识。</p>
 <p>然后是<strong>机器人的控制</strong>，大部分机器人都是提供了c++和python的接口，我们在使用NAO的过程中，会了解到一些机器人的基础知识以及和一些在机器人上编程需要的知识，比如python和c++的混合编程等等。</p>
 <p>这可能也是接触到的第一个大型的<strong>项目</strong>文件，BHuman代码框架有上万行的c++代码，不仅包括机器人控制代码，还使用Qt制作了命令行、模拟器等等，其组织代码的方式，代码风格，都有很多可以学习的地方。</p>
 <p>还可以做一些更加复杂的东西，比如为NAO建立模拟器，在模拟器中进行<strong>强化学习</strong>，并迁移到真实的机器人上等等。</p>
-<h2 id="1-nao刷机及连接">1. NAO刷机及连接</h2>
-<h3 id="1-nao刷机教程">1. NAO刷机教程</h3>
+<h1 id="1-nao刷机及连接">1. NAO刷机及连接</h1>
+<h2 id="1-nao刷机教程">1. NAO刷机教程</h2>
 <ol>
 <li>准备U盘，nao操作系统镜像(.opn文件)，NAOFlasher</li>
 <li>以管理员身份打开flasher：在bin目录下<code>sudo ./flasher</code></li>
@@ -198,29 +194,29 @@
 <li>制作完成后，在NAO关机情况下，将U盘插入头部后面的USB端口，按住胸前按钮越5s，直到变蓝，然后松开开始刷机。松开后，会频繁闪蓝光。</li>
 <li>刷机完成后，会站起来并发出阔爱的声音。</li>
 </ol>
-<h3 id="2-连接nao">2. 连接NAO</h3>
+<h2 id="2-连接nao">2. 连接NAO</h2>
 <p>连接NAO时，首先要知道NAO的IP，可以通过有线连接路由器，在路由器管理界面(比如水星路由器为<code>melogin.cn</code>)查看。</p>
 <p>然后在浏览器中输入IP，可以看到机器人设置界面，这里可以设置音量，调整NAO为无线连接等等。</p>
-<h3 id="3-胸前按钮">3. 胸前按钮</h3>
+<h2 id="3-胸前按钮">3. 胸前按钮</h2>
 <p>在关机时，按一下可以开机。</p>
 <p>开机时，按一下可以获得IP，连续按两下可以打开或关闭life模式，按住3秒以上关机。</p>
-<h2 id="3-安装bhuman系统">3. 安装Bhuman系统</h2>
-<h3 id="1-安装软件">1. 安装软件</h3>
+<h1 id="3-安装bhuman系统">3. 安装Bhuman系统</h1>
+<h2 id="1-安装软件">1. 安装软件</h2>
 <p>首先安装操作系统，建议使用Ubuntu14.04，与文档保持一致。因为安装更高版本的系统的话，使用apt下载的包版本与原来使用的版本不一致，代码会无法编译，比如Qt的高版本删除了很多低版本的函数，导致不能编译，这个如果配置的话也会比较复杂，所以建议使用虚拟机安装Ubuntu14.04。</p>
 <p>下载BHuman相关代码，安装依赖，执行文档中的<code>sudo apt-get install ...</code>命令。</p>
 <p>然后再手动安装alcommon，需要先在官网下载<code>naoqi-sdk-2.1.4.13-linux32.tar.gz</code>，然后执行<code>Install/installAlcommon</code>脚本。</p>
 <p>之后进入<code>Make/Linux</code>下执行make命令，进行编译。</p>
-<h3 id="2-添加机器人">2. 添加机器人</h3>
+<h2 id="2-添加机器人">2. 添加机器人</h2>
 <p>执行<code>./createRobot -t 1 -r 5 Penny</code>，创建一个队伍号为1，队员编号为5的名叫Penny的机器人，队伍号是之后的IP地址的第三位，队员号是之后IP地址的第四位，比如上面的机器人之后的有线IP地址会是<code>192.168.1.5</code>，之后通过这个IP访问。<strong>注意队伍号建议设置为1，队员号设置为一个比较大的数，队伍号不是1时，似乎会出现一些无法连接的问题，队员号如果比较小，可能会发生冲突。</strong></p>
 <p>之后在开机的情况下执行<code>./addRobotIds -ip 192.168.1.101 Penny</code>，这里的IP是机器人当前的IP，不是上面的<code>192.168.1.5</code>。</p>
 <p>之后再打开<code>Build</code>目录中的<code>bush</code>，就可以看到新建的机器人，并且如果可以看到电量和延迟的话，说明已经连接上了机器人。或者使用ssh，ping等命令，检查IP是否有效，如果可以登录或ping有反应，说明已经添加成功。</p>
 <p><strong>注意上面每一步执行后，都会有提示，如果没有提示，可能是某个配置文件出了问题，比如之前手动删除了某个robot，导致文件内有语法错误(这些bug不会显示出来，但如果没有执行成功，就说明有bug)。</strong></p>
-<h2 id="3-使用bhuman">3. 使用Bhuman</h2>
-<h3 id="1-使用bush和simrobot">1. 使用bush和simRobot</h3>
+<h1 id="3-使用bhuman">3. 使用Bhuman</h1>
+<h2 id="1-使用bush和simrobot">1. 使用bush和simRobot</h2>
 <p>与机器人的交互主要是通过bush和simRobot，bush主要用来部署代码，设置机器人等，simRobot提供了在模拟器中进行足球比赛的功能以及远程调试真实机器人的功能。高尔夫球赛中只使用了远程调试功能。</p>
 <p>在<code>Build/Linux/bush/Develop</code>下打开bush，然后将右侧的机器人拖到某个Empty的位置，然后打钩。</p>
 <p>之后可以使用下面的<code>deploy</code>按钮编译代码并部署在NAO上，使用<code>simulator</code>按钮打开远程调试。</p>
-<h3 id="2-调试">2. 调试</h3>
+<h2 id="2-调试">2. 调试</h2>
 <p>NAO左眼红色，说明能看到球和杆。绿色说明只能看到杆，白色说明只能看到球，没有颜色说明都没有看到。</p>
 <p>未完待续。。。</p>
 
@@ -246,7 +242,7 @@
           <a href="/tags/nao/">NAO</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/%E9%BB%91%E7%A7%91%E6%8A%80/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/">
+        <a class="prev" href="/post/code/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">Python爬虫刷博客访问量</span>
             <span class="prev-text nav-mobile">上一篇</span>

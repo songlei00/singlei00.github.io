@@ -6,7 +6,7 @@
     <description>Recent content on SongLei&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 10 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 24 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Me</title>
       <link>https://songlei.me/me/</link>
@@ -14,6 +14,60 @@
       
       <guid>https://songlei.me/me/</guid>
       <description>Me 😂TODO</description>
+    </item>
+    
+    <item>
+      <title>AutoML框架测评</title>
+      <link>https://songlei.me/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/</guid>
+      <description>&lt;p&gt;对NNI框架和Model Search框架的使用和评价。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AutoML调研</title>
+      <link>https://songlei.me/post/ai/nas%E8%B0%83%E7%A0%94/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/ai/nas%E8%B0%83%E7%A0%94/</guid>
+      <description>&lt;p&gt;AutoML包含超参数优化HPO、神经网络架构搜索NAS、神经网络压缩、自动特征选择等多个部分。本文对HPO和NAS部分的一些论文和框架做一个整理。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>GPU显存分析</title>
+      <link>https://songlei.me/post/code/gpu%E6%98%BE%E5%AD%98%E5%88%86%E6%9E%90/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/code/gpu%E6%98%BE%E5%AD%98%E5%88%86%E6%9E%90/</guid>
+      <description>&lt;p&gt;PyTorch训练显存爆炸的问题：在ImageNet 1k上训练ViT时，遇到了显存爆炸的问题，所以以ViT的训练为例，分析一下显存的占用和优化。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DataDrivenEvolutionaryOptimiz ch5</title>
+      <link>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch5/</link>
+      <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch5/</guid>
+      <description>&lt;p&gt;Data-Driven Surrogate-Assisted Evolutionary Optimization&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Python程序后台运行</title>
+      <link>https://songlei.me/post/code/python%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/</link>
+      <pubDate>Thu, 29 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/code/python%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/</guid>
+      <description>后台运行：使用nohup命令，nohup python3 -u run.py &amp;gt; log_output 2&amp;gt;&amp;amp;1 &amp;amp;，运行run.py文件，并将输入输出重定向，其中-u使得python不会将输出</description>
+    </item>
+    
+    <item>
+      <title>DataDrivenEvolutionaryOptimiz ch3</title>
+      <link>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch3/</link>
+      <pubDate>Sat, 24 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch3/</guid>
+      <description>&lt;p&gt;Evolutionary and Swarm Optimization&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -27,10 +81,10 @@
     
     <item>
       <title>网站底部添加运行时间</title>
-      <link>https://songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</link>
+      <link>https://songlei.me/post/website/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</link>
       <pubDate>Thu, 10 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</guid>
+      <guid>https://songlei.me/post/website/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</guid>
       <description>&lt;p&gt;在网站的底部添加网站运行时间的代码。&lt;/p&gt;</description>
     </item>
     
@@ -63,10 +117,10 @@
     
     <item>
       <title>Python爬虫刷博客访问量</title>
-      <link>https://songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/</link>
+      <link>https://songlei.me/post/code/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/</link>
       <pubDate>Wed, 03 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://songlei.me/post/%E9%BB%91%E7%A7%91%E6%8A%80/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/</guid>
+      <guid>https://songlei.me/post/code/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/</guid>
       <description>&lt;p&gt;使用Python爬虫刷不蒜子统计的博客访问人数和访问量。&lt;/p&gt;</description>
     </item>
     

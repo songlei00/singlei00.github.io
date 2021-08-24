@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AutoML on SongLei&#39;s Blog</title>
+    <link>https://songlei.me/tags/automl/</link>
+    <description>Recent content in AutoML on SongLei&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 24 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/tags/automl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AutoML框架测评</title>
+      <link>https://songlei.me/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/</guid>
+      <description>&lt;p&gt;对NNI框架和Model Search框架的使用和评价。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AutoML调研</title>
+      <link>https://songlei.me/post/ai/nas%E8%B0%83%E7%A0%94/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/ai/nas%E8%B0%83%E7%A0%94/</guid>
+      <description>&lt;p&gt;AutoML包含超参数优化HPO、神经网络架构搜索NAS、神经网络压缩、自动特征选择等多个部分。本文对HPO和NAS部分的一些论文和框架做一个整理。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

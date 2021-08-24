@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PyTorch on SongLei&#39;s Blog</title>
+    <link>https://songlei.me/tags/pytorch/</link>
+    <description>Recent content in PyTorch on SongLei&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 24 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GPU显存分析</title>
+      <link>https://songlei.me/post/code/gpu%E6%98%BE%E5%AD%98%E5%88%86%E6%9E%90/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/code/gpu%E6%98%BE%E5%AD%98%E5%88%86%E6%9E%90/</guid>
+      <description>&lt;p&gt;PyTorch训练显存爆炸的问题：在ImageNet 1k上训练ViT时，遇到了显存爆炸的问题，所以以ViT的训练为例，分析一下显存的占用和优化。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

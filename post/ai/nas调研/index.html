@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>AutoML调研 - SongLei&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="SongLei" /><meta name="description" content="AutoML包含超参数优化HPO、神经网络架构搜索NAS、神经网络压缩、自动特征选择等多个部分。本文对HPO和NAS部分的一些论文和框架做一个整理。
+" /><meta name="keywords" content="AI, Sim2Real" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
+
+
+<link rel="canonical" href="https://songlei.me/post/ai/nas%E8%B0%83%E7%A0%94/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="AutoML调研" />
+<meta property="og:description" content="AutoML包含超参数优化HPO、神经网络架构搜索NAS、神经网络压缩、自动特征选择等多个部分。本文对HPO和NAS部分的一些论文和框架做一个整理。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://songlei.me/post/ai/nas%E8%B0%83%E7%A0%94/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-08-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-24T00:00:00+00:00" />
+
+<meta itemprop="name" content="AutoML调研">
+<meta itemprop="description" content="AutoML包含超参数优化HPO、神经网络架构搜索NAS、神经网络压缩、自动特征选择等多个部分。本文对HPO和NAS部分的一些论文和框架做一个整理。"><meta itemprop="datePublished" content="2021-08-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-08-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="5538">
+<meta itemprop="keywords" content="人工智能,AutoML," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="AutoML调研"/>
+<meta name="twitter:description" content="AutoML包含超参数优化HPO、神经网络架构搜索NAS、神经网络压缩、自动特征选择等多个部分。本文对HPO和NAS部分的一些论文和框架做一个整理。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Song Lei&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/me/">
+        <li class="mobile-menu-item">Me</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Song Lei&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/me/">Me</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">AutoML调研</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-08-24 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
+            <a href="/categories/automl/"> AutoML </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-相关框架">1. 相关框架</a></li>
+    <li><a href="#2-超参数优化hpo">2. 超参数优化HPO</a></li>
+    <li><a href="#3-神经网络架构搜索nas">3. 神经网络架构搜索NAS</a>
+      <ul>
+        <li><a href="#1-neural-architecture-search-a-survey">1. Neural Architecture Search: A Survey</a></li>
+        <li><a href="#2-neural-network-search-with-reinforcement-learning">2. Neural Network Search With Reinforcement Learning</a></li>
+        <li><a href="#3-efficient-neural-architecture-search-via-parameter-sharing">3. Efficient Neural Architecture Search via Parameter Sharing</a></li>
+        <li><a href="#4-darts-differentiable-architecture-search">4. DARTS: Differentiable Architecture Search</a></li>
+        <li><a href="#5-understanding-and-simplifying-one-shot-architecture-search">5. Understanding and Simplifying One-Shot Architecture Search</a></li>
+        <li><a href="#6-the-evolved-transformer">6. The Evolved Transformer</a></li>
+        <li><a href="#7-vitas">7. ViTAS</a></li>
+        <li><a href="#8-imporving-keyword-spotting-and-language-identification-via-neural-architecture-search-at-scale">8. Imporving Keyword Spotting and Language Identification via Neural Architecture Search at Scale</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-其他问题">4. 其他问题</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>AutoML包含超参数优化HPO、神经网络架构搜索NAS、神经网络压缩、自动特征选择等多个部分。本文对HPO和NAS部分的一些论文和框架做一个整理。</p>
+<h1 id="1-相关框架">1. 相关框架</h1>
+<p>查看<a href="./AutoML%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B.md">AutoML框架测评</a>。</p>
+<h1 id="2-超参数优化hpo">2. 超参数优化HPO</h1>
+<p>Algorithms for Hyper-Parameter Optimization</p>
+<p>BO适用于低维情况，SMAC适用于离散情况，TPE适用于高维(可能是最强的)</p>
+<p>GP：</p>
+<p>TPE(Tree-structured Parzen Estimator Approach)：</p>
+<h1 id="3-神经网络架构搜索nas">3. 神经网络架构搜索NAS</h1>
+<h2 id="1-neural-architecture-search-a-survey">1. Neural Architecture Search: A Survey</h2>
+<p>NAS是AutoML的子领域，和超参数优化、元学习有交叉，关于神经网络架构的自动设计。方法的分类主要根据搜索空间、搜索策略、性能评估策略。</p>
+<ol>
+<li>
+<p>搜索空间：</p>
+<ol>
+<li>最简单的是链式结构，包含的参数通常有层数、每层的类型、每层的超参数。</li>
+<li>复杂的结构包括skip connection，multi-branch network。</li>
+<li>一种减少搜索空间的方法是使用cell(block)，搜索得到小的网络块，最终的网络使用结构相同的块堆积组成，这种方法相比搜索整个网络结构的方法的优势是搜索空间小、搜索速度快、通过cell构建的网络更容易在不同任务之间迁移、创建相同重复cell组成的架构是一种有用的设计原则(例如LSTM、RNN都是相同重复的cell)。Cell-based搜索分为两种，第一种是micro-architecture，搜索normal cell(输入输出的size不变)和reduction cell(输出size减小)，将两种cell堆积为最终模型，第二种是macro-architecture，搜索多少个cell需要使用，该如何连接。理想的情况下micro和macro应该同时优化，但实现中通常会使用层次化搜索的方式。</li>
+</ol>
+</li>
+<li>
+<p>搜索策略：包括随机搜索、贝叶斯优化、演化方法、RL和基于梯度的方法。</p>
+<ol>
+<li>RL建模：动作空间是搜索空间，动作是产生一个模型架构，奖赏为对模型的评估。不同RL方法的差别在于策略的表示和策略的优化方法，例如使用RNN建模策略，用REINFORCE或PPO优化策略；另一种是将这个过程视为序列化决策过程，行动是对架构进行mutation，状态为当前的模型，奖赏为模型评估结果。</li>
+<li>演化算法：比较好的方法是使用演化算法优化网络结构，使用梯度方法优化权重。(注意在NAS的文章中，mutation通常指的是一种局部的操作，比如网络某层的变化等，而不是演化算法中的全局算子)</li>
+<li>贝叶斯优化BO、基于树的方法、基于梯度的方法，不太懂。。。</li>
+</ol>
+</li>
+<li>
+<p>性能评估：</p>
+<ol>
+<li>Lower fidelity：训练更少的轮数、在数据集的子集上训练、使用分辨率更低的图像、使用更小的参数(如卷积核的数量等)，这种方法引入了偏差，但如果能保证最终得到的模型的排序和实际排序一样，则效果也会很好。</li>
+<li>Learning curve extrapolation：推断模型的性能或训练一个预测性能随训练变化的曲线的模型，这种方法面临的问题是如果想要比较准确得到性能，可能推断的过程要花费更多的时间。</li>
+<li>根据之前训练的模型初始化权重。</li>
+<li>One-Shot Architecture Search: 将所有的模型视为一个supergraph(one-shot model)的子图，共享权重，所以只需要训练一个one-shot模型，评估时不需要单独的训练。但这种方法会造成underestimate。不同one-shot方法的差别在于one-shot模型的训练方法，例如ENAS、DARTS等不同方法。One-shot的缺点在于搜索范围限定在supergraph中，引入了人的先验。</li>
+</ol>
+</li>
+</ol>
+<h2 id="2-neural-network-search-with-reinforcement-learning">2. Neural Network Search With Reinforcement Learning</h2>
+<p>用RL做NAS，使用RNN策略网络，REINFORCE方法训练。</p>
+<p>基本思想：神经网络的架构和连接方式能够被一个变长的串指定，使用RNN生成变长的串，即生成了一个网络模型。</p>
+<p>使用RNN产生模型的超参数，例如我们像生成一个卷积层，则让RNN依次输出filter个数、高度、宽度、Stride高度、宽度，卷积核数量等参数，对每个层都产生后，得到网络模型，然后训练，使用验证集上的精度和任意policy gradient的方法更新RNN参数，重复。</p>
+<p>对应RL：RNN网络对应策略网络，产生的一个值看做一个动作，产生网络的所有超参数的值的过程看做生成一个epoch的动作序列，精度看做是这个动作序列的奖赏$R$。在REINFORCE中最大化期望奖赏$E_{\rho}[R] = \frac{1}{m}\sum_{k=1}^m\sum_{t=1}^T\nabla\log P(a_t|a_{1:t-1}, \theta)R_k$，$m$是一个batch中产生的架构的数量，$T$是一个模型的超参数的数量。也可以使用其他RL算法，例如REINFORCE with baseline，将之前所有架构的EMA作为baseline。</p>
+<p>加入复杂的连接结构，如skip connection和branch layer的方法：使用set-selection type attention的方式。</p>
+<ol>
+<li>Skip connection：第N层RNN多输出一个anchor point的点，根据概率$P(j是i的输入) = sigmoid(v^Ttanh(W_{prev}*h_j+W_{curr}*h_i))$判断i和j之间是否连接，加入这个方法后可以无修改的使用前面的REINFORCE进行训练。</li>
+<li>Branch layer：本文的层如果有多个输入，则是在depth通道上进行拼接后输入，因为每层之间的连接是概率性的，所以可能出现某层没有输入连接或没有输出连接的情况。制定三条规则处理：如果某层没有输入，则使用原输入作为输入；如果最终层没有输入，则将前面所有层的输入拼接作为输入；如果输入的size不正确，则通过填充0的方式，增大输入的size。</li>
+</ol>
+<p>加入复杂的层结构：生成recurrent cells(这里的recurrent cells指的不是RNN或LSTM，而是像RNN、LSTM更加general的使用$x_t, h_{t-1}$作为输入，输出$h_t$的结构)。本文使用树结构每个节点对应一个计算操作和一个激活函数，控制器RNN对树上每个节点添加一个计算操作和一个激活函数。</p>
+<p>实验部分：在CIFAR10和Penn Treebank上做实验。CIFAR10上的搜索空间为使用ReLU激活函数的Conv层、BN、skipconnection。发现在搜索到的配置中，有更多长方形的filter和大的filter，skipconnection。在Penn Treebank上搜到的结构实现在了TensorFlow中，NASNet。</p>
+<p>虽然是AutoML，但使用REINFORCE学习控制器RNN时依然需要指定优化器参数、RNN中隐藏单元的个数、每个模型要训练多少轮等等。</p>
+<p>本文可以学习的点：将NAS问题形式化为RL的过程，NAS中一些复杂mutation的处理方法。</p>
+<h2 id="3-efficient-neural-architecture-search-via-parameter-sharing">3. Efficient Neural Architecture Search via Parameter Sharing</h2>
+<p>ENAS算法：思想是搜索的所有网络都可以看做一个supergraph的子图。构建一个supergraph(这个图也就是NAS的搜索空间)，从中采样subgraph作为一个模型架构，因为所有的网络都是从大网络中采样得到，所以权重是共享的，然后使用policy gradient方法训练。本文也写了网络的拓扑结构搜索和网络具体操作的搜索。</p>
+<p>训练方法：使用RNN控制器决定哪一条边被激活，每个节点进行什么操作。整个学习过程需要训练控制器RNN的参数$\theta$和模型参数$\omega$，训练模型参数$\omega$时，最小化多个子图模型的交叉熵，用多个子图模型的交叉熵近似总损失；训练RNN参数$\theta$时，使用REINFORCE算法最大化在验证集上的精度，并使用之前的moving average作为baseline以减小方差。获得最终模型的方法是通过RNN获得多个子图，然后评估选择验证集精度最好的一个。</p>
+<p>搜索conv cell和reduction cell的方法。搜索conv cell的方式与前面类似，搜索reduction cell的方式则是将所有的步长设置为2。</p>
+<h2 id="4-darts-differentiable-architecture-search">4. DARTS: Differentiable Architecture Search</h2>
+<p>DARTS算法：将搜索空间放松到连续空间，使得可以通过gradient-based方法优化。不需要控制器、hypernetwork、性能预测器。能够搜索convolutional和recurrent架构。</p>
+<p>搜索空间：构建图，每个节点代表数据，边代表操作，边可以选择的所有操作构成搜索空间(边操作的候选除了定义的操作外，还包含一个特殊的zero operation，表示不连接)。</p>
+<p>转化为连续空间：设$O$为当前节点所有候选操作集合，当前节点的输出为$o(x) = \sum_{o\in O}\frac{exp(\alpha_o^{(i, j)})}{\sum_{o' in O}exp(\alpha_{o'}^{(i, j)})}o(x)$，这里不是只在候选集合中选一个，而是计算所有候选的函数，然后求和作为最终输出。学习的目标变为了学习权重参数$\alpha$。训练完成后，选择最大的$\alpha$对应的操作作为最终网络的操作。</p>
+<p>转化为连续空间后，学习目标是同时优化$\alpha$和权重$w$。$\alpha$可以看做是当前的超参数。即$\min L_{val}(w^*(\alpha), \alpha), s.t. w^*(\alpha) = \argmin_w L_{train}(w, \alpha)$。但计算$w^*$是昂贵的，本文通过$\nabla_{\alpha}L_{val}(w^*(\alpha), \alpha) = \nabla_{\alpha}L_{val}(w - \nabla_wL_{train}(w, \alpha), \alpha)$近似。</p>
+<h2 id="5-understanding-and-simplifying-one-shot-architecture-search">5. Understanding and Simplifying One-Shot Architecture Search</h2>
+<p>本文根据实验，提出了一个one-shot模型生效的假设，为什么不同模型的权重可以共享：one-shot模型学到了哪些边是重要的，哪些是不重要的，删除重要的边会导致性能的剧烈下降，删除不重要的边只会产生小的影响。</p>
+<p>为了减弱删除一条边对性能的影响，文中引入了drop rate控制每条边被删除的概率。最终得到了上面的one-shot模型生效的假设。</p>
+<p>其他：训练one-shot模型不需要RL控制器或hypernetwork，只需要梯度下降方法。One-shot模型只是对搜索空间中模型的排序，最终得到的最好的模型需要重新训练。</p>
+<p>整体来说是一篇实验性质的文章，不是特别有用。实验都是在CIFAR10和ImageNet上做的，只有零点几的提升，也没什么意义。</p>
+<h2 id="6-the-evolved-transformer">6. The Evolved Transformer</h2>
+<h2 id="7-vitas">7. ViTAS</h2>
+<p>提出了对ViTs进行NAS， 对one-shot完全共享所有权重的方式进行改进，通过private class token和self-attention maps增加不同架构的多样性，有点像同时训练多个网络(因为有一部分权重是private的)，但大部分是共享的。</p>
+<p>搜索空间是heads number，patch size，output dimension of each layer，depth of the architectures。前几个是在block内的，最后一个是对架构的搜索。</p>
+<p>相比vanilla one-shot改进：</p>
+<ol>
+<li>Private class token：常规的实现是预定义一个巨大的class token，对于不同的patch size，动态从中选择元素，直到达到合适的尺寸。本文则是对不同的patch size独立定义class token，所以每个patch size的class token不会被其他大小的patch size的网络训练。</li>
+<li>Private self-attention for multiple heads：MHSA计算方式是通过一个全连接层$q, k, v = FC_1(X)$将对输入进行线性映射，然后划分为大小相同的q、k、v块，然后根据heads的数量将q、k、v划分为不同的块，计算$A_i = softmax(q_ik_i^T/\sqrt(D/h))$，然后计算$MHSA(Z) = FC_2([SA_1(Z), &hellip;]), SA_i(Z) = A_iv_i$。重点在计算$A_i$时，不同heads数下$q_i, k_i$的尺寸会发生变化，但不同尺寸的$q_i, k_i$蕴含不同的局部信息，所以不应该共享权重，所以将$FC_1$计算$q, k$的部分变为private，不同的heads数对应不同的$FC_{q, k}$，所以可以关注到不同的局部信息。而$v$表示不同特征映射，所以可以共享。</li>
+</ol>
+<p>增强训练稳定性：</p>
+<ol>
+<li>减少数据增强方式和regularization，只保留CutMix和Erasing增强能够提高重新训练的准确率。</li>
+<li>Identity sampling probability search：维护历史的flops，如果计算量过大，则增加identity层被采样的概率，如果过小，则减小identity层采样概率。这样使得模型的算力维持在限制内。</li>
+</ol>
+<p>训练：第一步会随机采样子网络，最小化loss，优化权重，第二步会使用NSGA-II最大化验证集准确率、同时优化flops和GPU负载。</p>
+<h2 id="8-imporving-keyword-spotting-and-language-identification-via-neural-architecture-search-at-scale">8. Imporving Keyword Spotting and Language Identification via Neural Architecture Search at Scale</h2>
+<p>Google提出了一个NAS框架model_search，这篇论文是用在了语音识别的任务上。</p>
+<p>模型搜索空间是macro-search，尝试对不同的block堆叠并通过加权和的方式集成。网络架构搜索方式是beam search，超参数通过贝叶斯优化的方式调节。搜索完成后会选择比较好(loss小)的模型，并集成(通过加权和的方式)。</p>
+<p>mutation步骤：如果当前深度的模型已经mutate了足够多次，且没有到达最大深度，则增加深度，否则进行随机替换其中的block，进行mutate。加速mutate得到的模型的训练过程的方法是transfer learning，transfer的方式是将两个模型中相同层的参数进行共享。</p>
+<p>搜索效率确实不高，但google的超强算力和一周的训练下，还是达到了很好的效果。</p>
+<h1 id="4-其他问题">4. 其他问题</h1>
+<ol>
+<li>
+<p>NAS和HPO的区别联系</p>
+<p>NAS和HPO应该是有重叠但没有互相包含的关系。</p>
+<p>NAS和HPO也有一定的相似之处，网络结构可以看做一种特殊的超参数，比如NAS尝试在某一层使用Conv、Linear、MaxPool层时，其实也是从[0, 1, 2]中选择一个值，作为超参数。这部分内容可以使用NAS或HPO实现。</p>
+<p>但NAS的研究中还包括了很多特定的NAS研究，比如one-shot将模型空间看做supermodel，然后从中采样，共享权重，这些方法就无法使用HPO实现。HPO自然也包含比如学习率调节、batchsize调节等不在NAS中的内容。</p>
+</li>
+<li>
+<p>AutoML中也需要指定很多参数，那么AutoML相比正常训练的优势在哪</p>
+</li>
+</ol>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">SongLei</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-08-24
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>
+          <a href="/tags/automl/">AutoML</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">AutoML框架测评</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/code/gpu%E6%98%BE%E5%AD%98%E5%88%86%E6%9E%90/">
+            <span class="next-text nav-default">GPU显存分析</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/s974534426" class="iconfont icon-github" title="github"></a>
+  <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("03/01/2021 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
+  </span>
+</div>
+
+
+
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

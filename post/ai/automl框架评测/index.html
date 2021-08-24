@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>AutoML框架测评 - SongLei&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="SongLei" /><meta name="description" content="对NNI框架和Model Search框架的使用和评价。
+" /><meta name="keywords" content="AI, Sim2Real" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
+
+
+<link rel="canonical" href="https://songlei.me/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="AutoML框架测评" />
+<meta property="og:description" content="对NNI框架和Model Search框架的使用和评价。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://songlei.me/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-08-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-24T00:00:00+00:00" />
+
+<meta itemprop="name" content="AutoML框架测评">
+<meta itemprop="description" content="对NNI框架和Model Search框架的使用和评价。"><meta itemprop="datePublished" content="2021-08-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-08-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2282">
+<meta itemprop="keywords" content="人工智能,AutoML," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="AutoML框架测评"/>
+<meta name="twitter:description" content="对NNI框架和Model Search框架的使用和评价。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Song Lei&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/me/">
+        <li class="mobile-menu-item">Me</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Song Lei&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/me/">Me</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">AutoML框架测评</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-08-24 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
+            <a href="/categories/automl/"> AutoML </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-nas框架">1. NAS框架</a></li>
+    <li><a href="#2-google-model-search">2. Google Model Search</a></li>
+    <li><a href="#3-总结">3. 总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>对NNI框架和Model Search框架的使用和评价。</p>
+<h1 id="1-nas框架">1. NAS框架</h1>
+<p>NNI中包含三大部分，HPO、NAS、模型压缩、特征提取，下面主要讨论HPO和NAS部分。</p>
+<p>NAS的实现方式一种是直接搜索结构，另一种是将层视为超参数，使用超参数优化的算法搜索。分别对应NNI中的one-shot和multi-trial。</p>
+<p>NNI中包含两种探索模型空间的方法：</p>
+<ol>
+<li>multi-trial NAS，在模型空间中采样模型并独立训练每个模型，采样模型的方法叫做探索策略，multi-trial NAS中包含随机搜索、网格搜索、演化算法、TPE、RL等多种策略。</li>
+<li>one-shot NAS，从super model中采样共享权重的模型子图，包含ENAS、DARTS、SPOS、ProxylessNAS等算法。</li>
+</ol>
+<p>Multi-trial NAS中需要配置文件<code>config.yml</code>和<code>search_space.json</code>。NAS实现方式：将需要选择的层或输入放在列表中<code>[conv1, conv2, ...]</code>或<code>[x0, x0+x1]</code>，将下标看做超参数，使用TPE等算法选择超参，完成NAS。</p>
+<p>One-shot NAS中需要用<code>nn.LayerChoice</code>、<code>nn.InputChoice</code>、<code>nn.ValueChoice</code>、<code>nn.Repeat</code>、<code>nn.Cell</code>指定supermodel的形式，然后使用上面提到的ENAS等算法进行模型搜索。NAS实现方式：层的选择：模型的层变化时，可能得到的输出的size也会变化，在nni中，保持模型正确(即各层的输出与下一层的输入的size相同)的方法有很多种：比如在多层卷积之后，使用<code>nn.AdaptiveAvgPool2d</code>可以得到输出为固定size的数据；使用<code>label</code>属性指定多个地方<code>nn.ValueChoice</code>选择同样的值，保证全连接层的输入输出对应。Skipconnection的实现方式是使用<code>nn.InputChoice(x0, x1+x0)</code>。</p>
+<p>One-shot的代码实现还是基于pytorch的，与pytorch的区别在于能够进行NAS，即动态选择一些层，代码实现的方式是将搜索的层包装为Layer，比如<code>PathSamplingInputChoice</code>和<code>PathSamplingLayerChoice</code>，在Layer内存储记录所有可以选择的层<code>candidates</code>和当前选择的层<code>idx</code>，然后通过<code>getaddr(self, cadidates[idx])</code>函数，在每次forword时使用不同的变量，这样就实现了权重的共享和supermodel的建立。<code>LayerChoice</code>和<code>InputChoice</code>的共同点是都只需要局部记录信息(只需要在实例中记录选了哪个就可以)，但对于<code>ValueChoice</code>，不适合包装为一个Layer，因为其不是一个输入输出处理的过程，而是一个特定的值，并且被选择的值可能在多个地方使用(不只是用于选择Layer的参数，如果限定ValueChoice只用于层的参数，则很容易转化到LayerChoice的形式)，所以无法实现。这样NAS的过程就变成了<code>PathSamplingInputChoice</code>和<code>PathSamplingLayerChoice</code>层的某个变量的取值的优化，将这些值记录在一个列表中，就可以用RL、EA等算法进行优化。</p>
+<p>One-shot优点是：搜索效率高，实现简单。存在的问题是：</p>
+<ol>
+<li>能表示的搜索空间有限，ValueChoice的实现存在问题，所以无法调整全连接层的unit数等。</li>
+<li>无法使用HPO，不能自动调整lr、batchsize等超参数。虽然可以</li>
+<li>无法并行搜索。</li>
+</ol>
+<p>Multi trial优点是表示能力强，能够表示基本所有的搜索空间。存在的问题是：</p>
+<ol>
+<li>搜索策略是调整超参数的一些策略，例如TPE等，效率上差于直接使用NAS的一些经典方法。</li>
+<li>多机训练存在bug。</li>
+</ol>
+<p>Bug总结</p>
+<ol>
+<li>出现Failed的情况，如果全部Failed，则大概率是代码出现bug或GPU爆了，如果只有部分Failed，可能是搜索的超参数的问题，某组超参数设置下运行会出bug。最好的办法是查看<code>nni-experiment</code>下的可以查看stderr log解决。</li>
+<li>安装后，执行nnictl命令时，显示命令不存在：解决方案是<code>source .bashrc</code>，更新bashrc。</li>
+<li>NNI的多机训练需要使用ssh通信，所以通信端口一般选择22，如果多机训练显示ERROR，需要考虑ssh是否连通。</li>
+</ol>
+<h1 id="2-google-model-search">2. Google Model Search</h1>
+<p>Google的AutoML框架。</p>
+<p>缺点：</p>
+<ol>
+<li>目前的版本只能完成分类任务，不能完成回归任务。</li>
+<li>不能直接使用别人使用tf写的代码，需要自己专门写Block。</li>
+<li>只有模型搜索(NAS)的功能，且搜索空间无法自定义，只能尝试所有块的stack。</li>
+<li>没有文档或样例代码，无法学习。</li>
+<li>训练过程和结果的查看更加麻烦，没有nni那样的网页用于查看训练过程。</li>
+<li>分布式训练比较复杂，需要用到数据库。</li>
+<li>只能做macro-search，不能做micro-search。</li>
+</ol>
+<p>Bug总结：</p>
+<ol>
+<li></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">from model_search.proto import hparam_proto as hparam_pb2 ImportError: cannot import name &#39;hparam_proto&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>解决：见<a href="https://github.com/google/model_search/issues/3">github issue</a>。</p>
+<ol start="2">
+<li></li>
+</ol>
+<p><code>tensorflow.python.framework.errors_impl.NotFoundError: model_search/model_search/configs/dnn_config.pbtxt; No such file or directory</code>。解决：将<code>model_search/constants.py</code>中的路径修改为对应pbtxt文件的绝对路径。</p>
+<ol start="3">
+<li></li>
+</ol>
+<p><code>absl.flags._exceptions.UnparsedFlagAccessError: Trying to access flag --phoenix_master before flags were parsed.</code>。解决：这是tf1向tf2迁移引起的一个bug，此时我使用的是tf2版本的代码，修复方式是在<code>model_search/oss_trainer_lib.py</code>文件中将<code>FLAGS = flags.FLAGS</code>修改为<code>FLAGS = tf.compat.v1.flags.FLAGS</code>。</p>
+<h1 id="3-总结">3. 总结</h1>
+<p>整体来说，NNI应该是目前最好用的一个AutoML库(虽然还有很多不足)，功能比较全面，并且代码实现十分优美。</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">SongLei</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-08-24
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>
+          <a href="/tags/automl/">AutoML</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/ai/nas%E8%B0%83%E7%A0%94/">
+            <span class="next-text nav-default">AutoML调研</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/s974534426" class="iconfont icon-github" title="github"></a>
+  <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("03/01/2021 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
+  </span>
+</div>
+
+
+
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.82.0 with theme even" />
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
 
 
 <link rel="canonical" href="https://songlei.me/post/ai/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" />
@@ -36,7 +36,7 @@
 
 
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -44,13 +44,13 @@
 <meta property="og:description" content="最近在投了字节和网易的强化学习岗位，面试前复习了一遍强化学习和深度强化学习的基础知识，简单总结一下复习的内容以及面试的经验。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://songlei.me/post/ai/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-04-02T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2021-04-02T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2021-04-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-04-02T00:00:00+00:00" />
 
 <meta itemprop="name" content="强化学习面试准备">
-<meta itemprop="description" content="最近在投了字节和网易的强化学习岗位，面试前复习了一遍强化学习和深度强化学习的基础知识，简单总结一下复习的内容以及面试的经验。"><meta itemprop="datePublished" content="2021-04-02T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-04-02T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3995">
+<meta itemprop="description" content="最近在投了字节和网易的强化学习岗位，面试前复习了一遍强化学习和深度强化学习的基础知识，简单总结一下复习的内容以及面试的经验。"><meta itemprop="datePublished" content="2021-04-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-04-02T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3996">
 <meta itemprop="keywords" content="人工智能,强化学习," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="强化学习面试准备"/>
 <meta name="twitter:description" content="最近在投了字节和网易的强化学习岗位，面试前复习了一遍强化学习和深度强化学习的基础知识，简单总结一下复习的内容以及面试的经验。"/>
@@ -143,25 +143,21 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#1-经典强化学习">1. 经典强化学习</a>
       <ul>
-        <li><a href="#1-经典强化学习">1 经典强化学习</a>
-          <ul>
-            <li><a href="#11-value-based">1.1 Value based</a></li>
-            <li><a href="#12-policy-based">1.2 Policy based</a></li>
-            <li><a href="#13-其他">1.3 其他</a></li>
-          </ul>
-        </li>
-        <li><a href="#2-深度强化学习">2 深度强化学习</a>
-          <ul>
-            <li><a href="#21-value-based">2.1 Value based</a></li>
-            <li><a href="#22-policy-based">2.2 Policy based</a></li>
-          </ul>
-        </li>
-        <li><a href="#3-相关论文">3 相关论文</a></li>
-        <li><a href="#总结">总结</a></li>
+        <li><a href="#11-value-based">1.1 Value based</a></li>
+        <li><a href="#12-policy-based">1.2 Policy based</a></li>
+        <li><a href="#13-其他">1.3 其他</a></li>
       </ul>
     </li>
+    <li><a href="#2-深度强化学习">2 深度强化学习</a>
+      <ul>
+        <li><a href="#21-value-based">2.1 Value based</a></li>
+        <li><a href="#22-policy-based">2.2 Policy based</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-相关论文">3 相关论文</a></li>
+    <li><a href="#4-总结">4 总结</a></li>
   </ul>
 </nav>
   </div>
@@ -169,7 +165,7 @@
     <div class="post-content">
       <p>最近在投了字节和网易的强化学习岗位，面试前复习了一遍强化学习和深度强化学习的基础知识，简单总结一下复习的内容以及面试的经验。</p>
 <hr>
-<h2 id="1-经典强化学习">1 经典强化学习</h2>
+<h1 id="1-经典强化学习">1. 经典强化学习</h1>
 <p>这部分内容主要是Sutton的书上的内容的总结。</p>
 <p>首先是基础的一些定义：</p>
 <p>状态值函数：$v_{\pi}(s_t) = E_{\pi}[G_t | s_t] = E_{\pi}[R_{t+1}+\gamma G_{t+1} | s_t] = E_{\pi}[R_{t+1} + \gamma E_{\pi}[G_{t+1}|s_{t+1}] | s_t] = E_{\pi}[R_{t+1} + \gamma v_{\pi}(s_{t+1}) | s_t]$</p>
@@ -178,7 +174,7 @@
 <p>最优状态值函数：$v_*(s) = \max_{\pi}v_{\pi}(s) = \max_a q_*(s, a)$</p>
 <p>$v_*(s) = \max_a q_*(s, a) = \max_a E_{\pi_*}[R_{t+1} + \gamma v_*(s')|s, a]$</p>
 <p>最优状态动作值函数：$q_*(s, a) = \max_\pi q_{\pi}(s, a) = E[R_{t+1} + \gamma v_*(s') | s, a]$</p>
-<h3 id="11-value-based">1.1 Value based</h3>
+<h2 id="11-value-based">1.1 Value based</h2>
 <p>首先是Value based的方法，主要包括DP，TD，MC三大块。</p>
 <ol>
 <li>DP方法</li>
@@ -216,7 +212,7 @@
 <p>TD和MC的折中&ndash;n步TD和TD( $\lambda$ )</p>
 </li>
 </ol>
-<h3 id="12-policy-based">1.2 Policy based</h3>
+<h2 id="12-policy-based">1.2 Policy based</h2>
 <p>Sutton书中所讲的policy based部分比较少，经典强化学习内容主要包括策略梯度定理的证明，RINFORCE算法，baseline的使用。</p>
 <p>1.2.1 策略梯度简介</p>
 <p>策略梯度方法是直接优化策略，这种方法的优点是可以应用在连续动作空间；动作的概率变化更加平滑，有更好的收敛性保证。</p>
@@ -238,10 +234,10 @@ $$ = E_{\tau \sim \pi_{\theta} [\sum_{i=0}\nabla_{\theta}\log(\pi_{\theta}(a_i|s
 <p>两边求导：</p>
 <p>$$\nabla_{\theta}\int \pi(a_t|s_t) = \int \nabla_{\theta}\pi(a_t|s_t) = \int \pi(a_t|s_t)\nabla_{\theta}\log(\pi(a_t|s_t)) = E[\nabla_{\theta}\log(\pi(a_t|s_t))] = 0$$</p>
 <p>Baseline是与$\theta$无关的常数，所以乘上后依然为0。</p>
-<h3 id="13-其他">1.3 其他</h3>
+<h2 id="13-其他">1.3 其他</h2>
 <p>蒙特卡洛树搜索似乎也可能会问：包括选择，扩展，rollout，回溯四步，要会简单讲一下四步都是什么。</p>
-<h2 id="2-深度强化学习">2 深度强化学习</h2>
-<h3 id="21-value-based">2.1 Value based</h3>
+<h1 id="2-深度强化学习">2 深度强化学习</h1>
+<h2 id="21-value-based">2.1 Value based</h2>
 <p>这部分内容主要是DQN及其变种(共有六种改进方式，集大成者为Rainbow)。</p>
 <p>DQN：</p>
 <p>DQN的更新公式：$E[(R_{t+1} + \gamma \max_a Q_{target}(s_{t+1}, a) - Q(s_t, a_t))^2]$，对损失函数求导就可以得到更新公式。</p>
@@ -256,7 +252,7 @@ $$ = E_{\tau \sim \pi_{\theta} [\sum_{i=0}\nabla_{\theta}\log(\pi_{\theta}(a_i|s
 <p>改进5. Noisy DQN</p>
 <p>为网络参数增加噪声，提高探索能力。</p>
 <p>改进6. n step DQN</p>
-<h3 id="22-policy-based">2.2 Policy based</h3>
+<h2 id="22-policy-based">2.2 Policy based</h2>
 <p>A2C</p>
 <ol start="2">
 <li>A3C</li>
@@ -283,7 +279,7 @@ $$ = E_{\tau \sim \pi_{\theta} [\sum_{i=0}\nabla_{\theta}\log(\pi_{\theta}(a_i|s
 <li>TRPO和PPO</li>
 </ol>
 <p>TRPO和PPO的优化目标，以及求解TRPO时使用的共轭梯度法。</p>
-<h2 id="3-相关论文">3 相关论文</h2>
+<h1 id="3-相关论文">3 相关论文</h1>
 <p>因为面试的是网易的游戏AI职位，所以这几天也稍微看了几篇比较经典的游戏AI论文，主要是围棋和王者荣耀，方便与面试官交流(似乎没有看到网易的游戏AI论文。。。 )。</p>
 <p>3.1 Mastering the game of Go with deep neural networks and tree search</p>
 <p>AlphaGo的论文。围棋游戏的难点在于巨大的搜索空间和棋局(状态)难以评估。AlphaGo的思路是将MCTS和NN，减少搜索树的深度和宽度。</p>
@@ -294,7 +290,7 @@ $$ = E_{\tau \sim \pi_{\theta} [\sum_{i=0}\nabla_{\theta}\log(\pi_{\theta}(a_i|s
 系统设计方面，系统包括RL Learner(分布式强化学习环境)，AI Server(分布在多个CPU上，通过selfplay的方式与环境交互)，Dispatch Module(每个Dispatch与多个AI Server在同一个机器上，收集AI Server的样本，压缩打包发送给Memory Pool)，Memory Pool(存储收集的样本数据)四个组件。</p>
 <p>算法方面，主要是RL Learner的实现，使用了AC框架，状态输入为局部的图像信息(英雄、小兵、防御塔)、图像的种类(英雄、生命值等)、游戏信息(当前时间等)，动作主要是移动方向和目标。使用了一些tricks：target attention(用特定模块选择攻击目标)、LSTM(策略网络加入LSTM学习连招)、action mask(在特定状态下，引入先验知识减少动作选择的维度)、multi label dual cliped PPO(多个动作独立考虑，并且使用$E_t[max(min(r_t(\theta)A_t, clip(r_t(\theta), 1-\epsilon, 1+\epsilon)A_t), cA_t)]$)，限制 r_t(\theta) 的下界。</p>
 <hr>
-<h2 id="总结">总结</h2>
+<h1 id="4-总结">4 总结</h1>
 <p>面试的感受是准备应该更加充分、深入，尤其是写在简历上的东西，要深入了解，比如TD3，不仅要了解其算法思路，比如T是什么，D是什么等等，还要理解为什么这样做，比如减少方差偏差，以及为什么会有方差偏差等等。在问完一些基础知识后，面试官通常就会开始深入问简历上的内容。</p>
 <p>虽然大部分问题都是强化学习相关，但也会问到一些基础的编程方便的知识，所以编程基础还是要牢固。</p>
 <p>最后，希望我面试顺利。。。</p>
@@ -326,7 +322,7 @@ $$ = E_{\tau \sim \pi_{\theta} [\sum_{i=0}\nabla_{\theta}\log(\pi_{\theta}(a_i|s
             <span class="prev-text nav-default">5月论文总结</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/%E9%BB%91%E7%A7%91%E6%8A%80/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/">
+        <a class="next" href="/post/code/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/">
             <span class="next-text nav-default">Python爬虫刷博客访问量</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>

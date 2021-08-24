@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.82.0 with theme even" />
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
 
 
 <link rel="canonical" href="https://songlei.me/post/paper/202106/" />
@@ -35,7 +35,7 @@
 
 
 
-<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -43,12 +43,12 @@
 <meta property="og:description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://songlei.me/post/paper/202106/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-06-01T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2021-06-01T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2021-06-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-06-01T00:00:00+00:00" />
 
 <meta itemprop="name" content="6月论文总结">
-<meta itemprop="description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"><meta itemprop="datePublished" content="2021-06-01T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-06-01T00:00:00&#43;00:00" />
+<meta itemprop="description" content="1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization 使用遗传算法求解对图像分类器的黑盒定向攻击问题。 算法整体比较简单，完全是GA的框架。 Fitness函数设计为增大目标类别$t"><meta itemprop="datePublished" content="2021-06-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-06-01T00:00:00+00:00" />
 <meta itemprop="wordCount" content="2422">
 <meta itemprop="keywords" content="论文总结," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="6月论文总结"/>
@@ -141,19 +141,15 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#1-genattack-pratical-black-box-attacks-with-gradient-free-optimization">1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization</a></li>
-        <li><a href="#2-zoo-zeroth-order-optimization-based-black-box-attacks-to-deep-neural-networks-without-training-substitute-models">2. ZOO: Zeroth Order Optimization Based Black-box Attacks to Deep Neural Networks without Training Substitute Models</a></li>
-        <li><a href="#3-black-box-adversarial-attacks-with-limited-queries-and-information">3. Black Box Adversarial Attacks with Limited Queries and Information</a></li>
-      </ul>
-    </li>
+    <li><a href="#1-genattack-pratical-black-box-attacks-with-gradient-free-optimization">1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization</a></li>
+    <li><a href="#2-zoo-zeroth-order-optimization-based-black-box-attacks-to-deep-neural-networks-without-training-substitute-models">2. ZOO: Zeroth Order Optimization Based Black-box Attacks to Deep Neural Networks without Training Substitute Models</a></li>
+    <li><a href="#3-black-box-adversarial-attacks-with-limited-queries-and-information">3. Black Box Adversarial Attacks with Limited Queries and Information</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h2 id="1-genattack-pratical-black-box-attacks-with-gradient-free-optimization">1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization</h2>
+      <h1 id="1-genattack-pratical-black-box-attacks-with-gradient-free-optimization">1. GenAttack: Pratical Black-box Attacks with Gradient-Free Optimization</h1>
 <p>使用遗传算法求解对图像分类器的黑盒定向攻击问题。</p>
 <p>算法整体比较简单，完全是GA的框架。</p>
 <ol>
@@ -171,7 +167,7 @@
 <p>使用无梯度优化的方法攻击的优势：自然的适用于黑盒攻击；对于经过对抗训练的模型往往也会有很好的效果(一般的对抗训练都是使用白盒攻击产生对抗样本的，似乎只能防御通过类似方式产生的样本，比如使用$l_{\infty}$进行训练只能防御$l_{\infty}$产生的样本，猜的)，所以无梯度的攻击方法能够成功攻击各种对梯度做防御的网络。</p>
 <p>防御的方法：对抗训练、gradient masking、obfuscation。</p>
 <p>总结：主要是遗传算法的应用，以及第一种通过插值的方式从低维空间产生高维噪声的加速方式很不错。</p>
-<h2 id="2-zoo-zeroth-order-optimization-based-black-box-attacks-to-deep-neural-networks-without-training-substitute-models">2. ZOO: Zeroth Order Optimization Based Black-box Attacks to Deep Neural Networks without Training Substitute Models</h2>
+<h1 id="2-zoo-zeroth-order-optimization-based-black-box-attacks-to-deep-neural-networks-without-training-substitute-models">2. ZOO: Zeroth Order Optimization Based Black-box Attacks to Deep Neural Networks without Training Substitute Models</h1>
 <p>使用梯度估计的方法解决黑盒图像样本攻击的问题，提出了ZOO算法，要求模型可以输出每一个类别的置信度。</p>
 <p>算法思路：思想很简单，使用差分的方法，梯度等于$\frac{f(x+h) - f(x-h)}{2h}$。然后利用梯度和白盒攻击方法C&amp;W方法生成对抗样本。</p>
 <ol>
@@ -191,7 +187,7 @@
 </ol>
 <p>实验中关注的指标是攻击成功率以及对抗样本和原图像的$l_2$距离(指示生成对抗样本的质量)。</p>
 <p>总结：提出了通过差分的方式估计模型梯度的方法，以及加速方法，不需要训练替代模型。其中前两种加速方法似乎很常见也很好用，可以学习一下。</p>
-<h2 id="3-black-box-adversarial-attacks-with-limited-queries-and-information">3. Black Box Adversarial Attacks with Limited Queries and Information</h2>
+<h1 id="3-black-box-adversarial-attacks-with-limited-queries-and-information">3. Black Box Adversarial Attacks with Limited Queries and Information</h1>
 <p>本文是对黑盒的图像分类神经网络的攻击，要求更加严格(query次数有限，不完全信息，只能获得label而不是loss函数)，使用NES算法进行梯度估计。</p>
 <blockquote>
 <p>总结(黑盒对抗攻击)</p>
@@ -235,7 +231,7 @@
           <a href="/tags/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/">论文总结</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/%E9%BB%91%E7%A7%91%E6%8A%80/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/">
+        <a class="prev" href="/post/website/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">网站底部添加运行时间</span>
             <span class="prev-text nav-mobile">上一篇</span>

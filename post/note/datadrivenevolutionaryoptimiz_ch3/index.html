@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DataDrivenEvolutionaryOptimiz ch3 - SongLei&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="SongLei" /><meta name="description" content="Evolutionary and Swarm Optimization
+" /><meta name="keywords" content="AI, Sim2Real" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
+
+
+<link rel="canonical" href="https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch3/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="DataDrivenEvolutionaryOptimiz ch3" />
+<meta property="og:description" content="Evolutionary and Swarm Optimization" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch3/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-07-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-07-24T00:00:00+00:00" />
+
+<meta itemprop="name" content="DataDrivenEvolutionaryOptimiz ch3">
+<meta itemprop="description" content="Evolutionary and Swarm Optimization"><meta itemprop="datePublished" content="2021-07-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-07-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2118">
+<meta itemprop="keywords" content="笔记," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DataDrivenEvolutionaryOptimiz ch3"/>
+<meta name="twitter:description" content="Evolutionary and Swarm Optimization"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Song Lei&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/me/">
+        <li class="mobile-menu-item">Me</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Song Lei&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/me/">Me</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DataDrivenEvolutionaryOptimiz ch3</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-07-24 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-evolutionary-algorithm">1. Evolutionary algorithm</a>
+          <ul>
+            <li><a href="#es">ES</a></li>
+            <li><a href="#genetic-programming">Genetic Programming</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-swarm-optimization-algorithm">2. Swarm optimization algorithm</a>
+          <ul>
+            <li><a href="#ant-colony-optimization">Ant colony optimization</a></li>
+            <li><a href="#differential-evolution">Differential Evolution</a></li>
+            <li><a href="#particle-swarm-optimization">Particle Swarm Optimization</a></li>
+            <li><a href="#memetic-algorithms">Memetic Algorithms</a></li>
+            <li><a href="#estimation-of-distribution-algorithms">Estimation of Distribution Algorithms</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Evolutionary and Swarm Optimization</p>
+<p>元启发式算法分为evolutionary algorithm和swarm optimization algorithm，这两种方法都是基于种群的随机搜索算法。</p>
+<ol>
+<li>Evolutionary algorithm的框架有genetic algorithm，evolution strategy
+，genetic programming等框架。包含初始化、fitness评估、选择、重组等多个步骤。</li>
+<li>Swarm optimization algorithm中两个经典算法是particle swarm optimization和colony optimization algorithm，群智能算法通常没有重组和选择的操作。</li>
+</ol>
+<h2 id="1-evolutionary-algorithm">1. Evolutionary algorithm</h2>
+<p>GA和ES的主要区别：EA中有参数的self-adaptation；ES的子代个数通常大于等于父代，GA通常相等；Gaussian mutation是变异的主要来源，GA的主要来源是crossover。ES通常用于连续优化问题，GA通常适用于整数优化和组合优化。</p>
+<h3 id="es">ES</h3>
+<p>(1+1)-ES中有一个父代，通过添加高斯扰动，生成一个子代。1/5 success rule是如果之前k轮中，成功的变异比例超过1/5则增大高斯分布的标准差$\sigma = \sigma / c, c \leq 1$，如果小于，则$\sigma = \sigma * c$，这是最简单的参数self-adaptation思想。</p>
+<p>Environmental selection中：$(\mu, \lambda)$-ES是non-elitism的，会在$\lambda$个子代中选择$\mu$个最好的作为下一代；$(\mu+\lambda)$-ES是elitism的，会在$\mu+\lambda$个个体中选择最好的$\mu$个。</p>
+<p>如果最优解在搜索空间的中部时，加入crossover或recombination可以带来提升。Local recombination对所有变量(即同一个染色体上的每一位变量)使用相同的父代，而global recombination则是每一位都重新随机选择两个父代。</p>
+<p>CMA-ES算法：该算法变异时的高斯分布的协方差矩阵不是对角阵，各个变量之间是相关的，希望找到adapt协方差矩阵使得我们可以最高效的找到最优值。</p>
+<h3 id="genetic-programming">Genetic Programming</h3>
+<p>GP可以看做GA使用不同的representation(通常是决策树结构表示)的变种，适用于regression和特征选择问题，因此可以看做是ML的一个子集。</p>
+<p>Tree-based GP：GP的流程也是初始化、重组变异、评估、选择下一代，但由于表示方式的不同，所以初始化和重组变异的过程和前面的算法也有所不同。初始化有full和grow两种方法，full方法是指定一个深度，构建一个完全二叉树，而grow方法则使用DFS，某一个节点达到设定的深度就可以。重组变异是在子树级别的。</p>
+<h2 id="2-swarm-optimization-algorithm">2. Swarm optimization algorithm</h2>
+<p>群智能算法和前面演化算法的区别是，群智能算法使用的信息包括了所有个体的某个信息(例如所有个体所到达的最好位置)。</p>
+<h3 id="ant-colony-optimization">Ant colony optimization</h3>
+<p>ACO是根据蚁群使用信息素交流而提出的。ACO包括四步：初始化、解构建、局部搜索、信息素更新。</p>
+<h3 id="differential-evolution">Differential Evolution</h3>
+<p>DE是解决连续优化的一种方法。</p>
+<p>初始化：第i个个体的第j维的值为$x_{j, min} + r * (x_{j, max} - x_{j, min})$，其中$r$是0到1的随机数。</p>
+<p>Mutation：包含多种不同的变异算子。</p>
+<p>DE/rand/1：$u_i(t+1) = x_{r1}(t) + F(x_{r2}(t)-x_{r3}(t))$</p>
+<p>DE/best/1：$u_i(t+1) = x_{best}(t) + F(x_{r1}(t)-x_{r2}(t))$</p>
+<p>DE/rand/2：$u_i(t+1) = x_{r1}(t) + F(x_{r2}(t)-x_{r3}(t)) + F(x_{r4}(t)-x_{r5}(t))$</p>
+<p>DE/best/2：$u_i(t+1) = x_{best}(t) + F(x_{r1}(t)-x_{r2}(t)) + F(x_{r3}(t) - x_{r4}(t))$</p>
+<p>DE/current-to-best/1：$u_i(t+1) = x_{i}(t) + F(x_{best}(t)-x_{i}(t)) + F(x_{r1}(t) - x_{r2}(t))$</p>
+<p>DE/rand-to-best/1：$u_i(t+1) = x_{r1}(t) + F(x_{best}(t)-x_{r1}(t)) + F(x_{r2}(t) - x_{r3}(t))$</p>
+<p>对于前四个，第二个指示的是base的选择，即对哪一个个体进行变异，第三个指示的是差分的数量，1表示一个差分，2表示两个差分。对于后两个，第二个指示base和差分的方向，第三个指示有随机差分的数量。DE名字应该也是从这里显示出来，通过计算个体的差分，进行mutation。</p>
+<p>Crossover：使用Binary或exponential crossover</p>
+<h3 id="particle-swarm-optimization">Particle Swarm Optimization</h3>
+<ol>
+<li>Canonical PSO：每个个体有位置和速度，利用自身或群体的经验更新速度，再利用速度更新位置。优点是容易实现和快速收敛，缺点是容易收敛到局部最优，尤其是在高维情况下。</li>
+<li>Competitive Swarm Optimizer：缓解提前收敛的问题。将所有粒子分为两组，根据fitness值分出胜者和败者，败者向胜者学习。</li>
+<li>Social Learning Particle Swarm Optimizer：social learning是向种群中更好的个体学习。SL-PSO中，将个体按照fitness值排序，每个个体以一定概率向比他更好的个体学习</li>
+</ol>
+<h3 id="memetic-algorithms">Memetic Algorithms</h3>
+<p>Memetic算法和演化算法的区别是，在子代评估之前加入了局部搜索。局部搜索有两种方式，Lamarckian和Baldwinian，区别是Lamarckian局部搜索时表现型的改变会直接改变基因型，而Baldwinian表现型的改变不会影响基因型。</p>
+<p>多目标Memetic：局部搜索时需要使用单目标，所以通过权重向量转化单目标为多目标。随机产生一个权重向量或计算得到一个权重。</p>
+<h3 id="estimation-of-distribution-algorithms">Estimation of Distribution Algorithms</h3>
+<p>EDAs是一种基于种群的算法，使用概率模型引导搜索(有点像RL中model-based的概念)。将传统的EA中的crossover和mutaiton步骤变为建立概率模型和从概率模型中采样的过程。</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">SongLei</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-07-24
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/code/python%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Python程序后台运行</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/bug/ubuntu%E4%BC%91%E7%9C%A0%E5%90%8E%E9%87%8D%E5%90%AF%E9%BB%91%E5%B1%8F/">
+            <span class="next-text nav-default">Ubuntu休眠后重启黑屏</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/s974534426" class="iconfont icon-github" title="github"></a>
+  <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("03/01/2021 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
+  </span>
+</div>
+
+
+
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
