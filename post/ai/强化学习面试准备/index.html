@@ -288,7 +288,7 @@ $$ = E_{\tau \sim \pi_{\theta} [\sum_{i=0}\nabla_{\theta}\log(\pi_{\theta}(a_i|s
 <p>3.2 Mastering Complex Control in MOBA Games with Deep Reinforcement Learning</p>
 <p>王者荣耀论文。该论文主要是解决1v1游戏中的复杂控制问题，在system和algorithm两个方面做出了改进。
 系统设计方面，系统包括RL Learner(分布式强化学习环境)，AI Server(分布在多个CPU上，通过selfplay的方式与环境交互)，Dispatch Module(每个Dispatch与多个AI Server在同一个机器上，收集AI Server的样本，压缩打包发送给Memory Pool)，Memory Pool(存储收集的样本数据)四个组件。</p>
-<p>算法方面，主要是RL Learner的实现，使用了AC框架，状态输入为局部的图像信息(英雄、小兵、防御塔)、图像的种类(英雄、生命值等)、游戏信息(当前时间等)，动作主要是移动方向和目标。使用了一些tricks：target attention(用特定模块选择攻击目标)、LSTM(策略网络加入LSTM学习连招)、action mask(在特定状态下，引入先验知识减少动作选择的维度)、multi label dual cliped PPO(多个动作独立考虑，并且使用$E_t[max(min(r_t(\theta)A_t, clip(r_t(\theta), 1-\epsilon, 1+\epsilon)A_t), cA_t)]$)，限制 r_t(\theta) 的下界。</p>
+<p>算法方面，主要是RL Learner的实现，使用了AC框架，状态输入为局部的图像信息(英雄、小兵、防御塔)、图像的种类(英雄、生命值等)、游戏信息(当前时间等)，动作主要是移动方向和目标。使用了一些tricks：target attention(用特定模块选择攻击目标)、LSTM(策略网络加入LSTM学习连招)、action mask(在特定状态下，引入先验知识减少动作选择的维度)、multi label dual cliped PPO(多个动作独立考虑，并且使用$E_t[max(min(r_t(\theta)A_t, clip(r_t(\theta), 1-\epsilon, 1+\epsilon)A_t), cA_t)]$)，限制 $r_t(\theta)$ 的下界。</p>
 <hr>
 <h1 id="4-总结">4 总结</h1>
 <p>面试的感受是准备应该更加充分、深入，尤其是写在简历上的东西，要深入了解，比如TD3，不仅要了解其算法思路，比如T是什么，D是什么等等，还要理解为什么这样做，比如减少方差偏差，以及为什么会有方差偏差等等。在问完一些基础知识后，面试官通常就会开始深入问简历上的内容。</p>
