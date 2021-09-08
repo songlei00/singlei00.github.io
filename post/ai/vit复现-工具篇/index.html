@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Vision Transformer复现-工具篇 - SongLei&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="SongLei" /><meta name="description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为工具篇，共六个部分，包括：pytorch分布式训练、程序后台运行、GPU显存和时间分析、Makefile、命令行传递参数、logging库的使用。
+" /><meta name="keywords" content="AI, Sim2Real" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
+
+
+<link rel="canonical" href="https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%B7%A5%E5%85%B7%E7%AF%87/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Vision Transformer复现-工具篇" />
+<meta property="og:description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为工具篇，共六个部分，包括：pytorch分布式训练、程序后台运行、GPU显存和时间分析、Makefile、命令行传递参数、logging库的使用。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%B7%A5%E5%85%B7%E7%AF%87/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-09-07T00:00:00+00:00" />
+
+<meta itemprop="name" content="Vision Transformer复现-工具篇">
+<meta itemprop="description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为工具篇，共六个部分，包括：pytorch分布式训练、程序后台运行、GPU显存和时间分析、Makefile、命令行传递参数、logging库的使用。"><meta itemprop="datePublished" content="2021-09-07T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-09-07T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3600">
+<meta itemprop="keywords" content="人工智能,计算机视觉,VisionTransformer," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vision Transformer复现-工具篇"/>
+<meta name="twitter:description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为工具篇，共六个部分，包括：pytorch分布式训练、程序后台运行、GPU显存和时间分析、Makefile、命令行传递参数、logging库的使用。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Song Lei&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/me/">
+        <li class="mobile-menu-item">Me</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Song Lei&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/me/">Me</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Vision Transformer复现-工具篇</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-09-07 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"> 计算机视觉 </a>
+            <a href="/categories/visiontransformer/"> VisionTransformer </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-pytorch分布式训练">1. PyTorch分布式训练</a>
+      <ul>
+        <li><a href="#1-概念">1. 概念</a></li>
+        <li><a href="#2-原理">2. 原理</a></li>
+        <li><a href="#3-关于batchsize">3. 关于batchsize</a></li>
+        <li><a href="#4-model-parallel">4. Model Parallel</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-程序后台运行">2. 程序后台运行</a></li>
+    <li><a href="#3-gpu显存和时间分析">3. GPU显存和时间分析</a>
+      <ul>
+        <li><a href="#1-显存分析工具">1. 显存分析工具</a></li>
+        <li><a href="#2-时间分析工具">2. 时间分析工具</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-makefile">4. Makefile</a></li>
+    <li><a href="#5-命令行传递参数和logging库">5. 命令行传递参数和logging库</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为工具篇，共六个部分，包括：pytorch分布式训练、程序后台运行、GPU显存和时间分析、Makefile、命令行传递参数、logging库的使用。</p>
+<p>这个系列的文章分为三篇：</p>
+<ol>
+<li>原理及代码细节篇：讲解ViT的结构和代码实现细节。</li>
+<li>工具篇：记录复现大型炼丹的过程中，提高效率和debug的工具。</li>
+<li>Bug篇：记录我遇到的一堆bug。。。</li>
+</ol>
+<h1 id="1-pytorch分布式训练">1. PyTorch分布式训练</h1>
+<p>网上的分布式资料感觉比较乱，而且大部分bug也都是因为分布式引起的，所以还是自己稍微整理了一下。</p>
+<p>PyTorch中的数据并行有<code>nn.DataParallel</code>和<code>nn.DistributedDataParallel</code>两种。DataParallel完全不建议使用，具体原因已经被很多人讲过了，所以跳过。<code>DistributedDataParallel</code>是更建议使用得到方式，是多进程训练范式，适用于单机多卡和多机多卡的情况，并且可以与model parallel同时使用，推荐使用。</p>
+<h2 id="1-概念">1. 概念</h2>
+<p>DDP中有几个重要概念，在使用DDP时就是要通过这些变量确定进行要使用的GPU的：</p>
+<ol>
+<li><code>rank</code>是GPU的序号，通过<code>dist.get_rank()</code>获得。</li>
+<li><code>world_size</code>是GPU的总数，通过<code>dist.get_world_size()</code>获得。</li>
+<li><code>local_rank</code>是当前机子上GPU的编号，通过环境变量<code>os.environ['LOCAL_RANK']</code>获得(注意os获得的local rank是str类型，要强制类型转换为int)。</li>
+</ol>
+<h2 id="2-原理">2. 原理</h2>
+<p>DDP的训练流程是：</p>
+<ol>
+<li>将rank0上的模型的<code>state_dict()</code>广播到所有的节点上，确保所有节点以相同的模型参数开始训练。</li>
+<li>使用<code>DistributedSampler</code>加载数据(<code>DistributedSampler</code>能够根据rank值采样数据集的不同部分)，计算loss，backward得到梯度。</li>
+<li>不同机器之间对梯度进行reduce操作，计算平均梯度，然后用平均梯度更新模型。</li>
+</ol>
+<p>为了通信的高效性，Reducer将梯度以bucket(即将多个变量看做一个bucket，这样传输时可以传输比较大的数据)的形式组织，每次reduce一个bucket的数据。backward时，每一个梯度计算完成后，会等待同一个bucket中其他梯度的计算，直到一个bucket中所有的梯度计算完成后，不同进程之间的bucket会进行allreduce操作，计算所有进程之间的这个bucket的平均梯度。所有的梯度都计算完成后，会等待所有allreduce操作的完成，完成后再使用平均梯度更新模型，因为模型更新前的参数相同，allreduce后梯度也相同，所以保证所有更新后模型的参数是相同的。</p>
+<p>训练时，需要在每个机子上配置代码文件和bash脚本，不同机子上的代码文件的区别是：</p>
+<ol>
+<li><code>DistributedSampler</code>的<code>rank</code>参数需要按照全局的rank设置。</li>
+<li>模型和数据都要放在<code>local_rank</code>指定的GPU上，<code>net = Net().to(args.local_rank); model = DDP(net, device_ids=[args.local_rank], output_device=args.local_rank)</code>。或者直接设置<code>torch.cuda.set_device(args.local_rank)</code>，这样后面就可以直接用<code>to('cuda')</code>了。</li>
+</ol>
+<h2 id="3-关于batchsize">3. 关于batchsize</h2>
+<p>关于batchsize需要说明的点：DDP下，<code>DataLoader</code>中batchsize参数指的是每个进程的batchsize，总batchsize是进程的batchsize的N倍。这意味这两点：</p>
+<ol>
+<li>当GPU数或机数增加时，相当于总batchsize增大，所以学习率也要跟着调整。</li>
+<li>单卡的显存不足，导致batchsize过小时，可以通过增加GPU数或机数获得更大的batchsize。</li>
+</ol>
+<h2 id="4-model-parallel">4. Model Parallel</h2>
+<p>模型并行：简单说一下，模型并行就是将模型的不同部分放在不同的GPU上，使得我们可以用多块GPU存储不同部分的模型和梯度信息，使用更大的模型。一般将model移动到GPU上时，会使用<code>model.to('cuda')</code>，这行代码会对model中的每个层执行to方法。而如果我们想要把模型移动到不同GPU上，只要将model中不同的层to到不同的GPU上即可。具体如下：</p>
+<p>比如model有两个全连接层fc1和fc2，将model移动到GPU时，不能简单使用<code>model.to('cuda')</code>，而是要对不同层分别执行to，所以可以重载model的to方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">device1</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device1</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>另外torch要求数据和模型需要在同一个GPU上才能计算，所以在fc1计算时，数据应该在GPU0上，fc2计算时，数据应该在GPU1上，所以forward函数中需要对数据所在的GPU进行调整：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">device0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">device1</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device0</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device1</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="2-程序后台运行">2. 程序后台运行</h1>
+<p>这部分记录一下将程序挂在后台训练的方式。在服务器上<code>python main.py</code>训了三天之后，网络忽然断了导致训练中断，是多么痛苦。。。</p>
+<ol>
+<li>后台运行的命令是<code>nohup</code>，比如运行后台<code>main.py</code>并将标准输出重定向到<code>out</code>文件中，将标准错误重定向到<code>err</code>文件中：<code>nohup python3 -u main.py &gt; out 2&gt;err &amp;</code>。</li>
+<li>查询程序进程号的命令是<code>ps</code>，比如上面我们启动程序的命令是<code>python3 -u main.py</code>，那么查询的命令是<code>ps -ef | grep &quot;python3 -u main.py&quot;</code>。</li>
+<li>关闭进程的命令是<code>kill</code>，直接<code>kill 进程号</code>。但pytorch分布式训练时，可能存在多个进程，一个一个kill是很累的，所以还有关闭查询到的所有进程的命令：<code>ps -ef | grep &quot;python3 -u main.py&quot; | grep -v grep | awk '{print &quot;kill -9 &quot; $2}' | sh</code>。</li>
+</ol>
+<h1 id="3-gpu显存和时间分析">3. GPU显存和时间分析</h1>
+<p>之前写了一篇<a href="/post/ai/pytorch%E6%98%BE%E5%AD%98%E5%88%86%E6%9E%90">pytorch显存分析</a>，主要介绍了什么占用了显存，而这部分则是介绍用什么工具分析显存的占用情况。另外，在使用多机多卡分布式时，遇到了多机比单机训练还慢的情况，所以又研究了一下GPU运行时间分析的工具。于是就有了这一小节。</p>
+<h2 id="1-显存分析工具">1. 显存分析工具</h2>
+<p>一种是<code>nvidia-smi</code>，但如果想要追踪程序各个阶段显存的使用量，使用<code>nvidia-smi</code>就不太方便了。<code>torch.cuda</code>下的一些函数提供了计算当前进程占用GPU的显存量，比如<code>torch.cuda.memory_allocated()</code>计算所有tensor占的显存，<code>torch.cuda.list_gpu_processes()</code>显示进程占用的所有显存。</p>
+<h2 id="2-时间分析工具">2. 时间分析工具</h2>
+<p>PyTorch程序的时间分析与普通的时间分析最大的区别是，有很多代码是在GPU上运行的，直接使用time等库统计时间会出现一些问题，建议使用pytorch专门提供的性能分析工具：<code>torch.cuda.Event</code>和<code>torch.autograd.profiler</code>。</p>
+<ol>
+<li>
+<p><code>torch.cuda.Event</code>可以记录某段程序的运行时间，我遇到的用两台机器训练比一台训练还要慢的问题，就是通过在<code>loss.backward()</code>前后record，发现该行在使用两台机器后执行时间翻倍，找到性能瓶颈，解决问题的。函数用法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">start</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">enable_timing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">enable_timing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">start</span><span class="o">.</span><span class="n">record</span><span class="p">()</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="n">end</span><span class="o">.</span><span class="n">record</span><span class="p">()</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">(</span><span class="n">end</span><span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>torch.autograd.profiler</code>我理解是用来分析model中各层的计算时间的，找到模型中耗时的层进行优化。</p>
+</li>
+</ol>
+<h1 id="4-makefile">4. Makefile</h1>
+<p>Makefile是自动化编译c++的一个工具，但同样也可以用来执行python代码，不需要任何makefile的基础，并且相比shell更加容易编写和简单。在有多个python文件，并且有多个命令行参数时，可以写成makefile文件来执行。比如我可能有三个python文件，<code>train.py</code>、<code>finetune.py</code>和<code>test.py</code>，并且每个文件都有数据集路径<code>data_path</code>，学习率<code>lr</code>，分布式执行时又有各种必要的参数。</p>
+<p>所以可以在目录下建立<code>Makefile</code>文件，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-makefile" data-lang="makefile"><span class="err">.PHONY</span> <span class="err">train,</span> <span class="err">finetune,</span> <span class="err">test</span>
+
+<span class="nf">train</span><span class="o">:</span>
+    python -u -m torch.distributed.run <span class="se">\
+</span><span class="se"></span>        --nnode<span class="o">=</span><span class="m">1</span> <span class="se">\
+</span><span class="se"></span>        --node_rank<span class="o">=</span><span class="m">0</span> <span class="se">\
+</span><span class="se"></span>        --nproc_per_node<span class="o">=</span><span class="m">4</span> <span class="se">\
+</span><span class="se"></span>        --master_addr<span class="o">=</span><span class="s2">&#34;...&#34;</span> <span class="se">\
+</span><span class="se"></span>        --master_port<span class="o">=</span><span class="m">1234</span> <span class="se">\
+</span><span class="se"></span>        train.py <span class="se">\
+</span><span class="se"></span>        --lr<span class="o">=</span>3e-4 <span class="se">\
+</span><span class="se"></span>        --data_path<span class="o">=</span>data/ <span class="se">\
+</span><span class="se"></span>
+<span class="nf">finetune</span><span class="o">:</span>
+    python ...
+
+<span class="nf">test</span><span class="o">:</span>
+    python ...
+</code></pre></td></tr></table>
+</div>
+</div><p>然后就可以通过<code>make train</code>这样的方式执行训练代码，就不需要每次都输入很长的命令了，如果要后台训练，也可以在命令上加入<code>nohup</code>。</p>
+<h1 id="5-命令行传递参数和logging库">5. 命令行传递参数和logging库</h1>
+<p>写代码过程中也发现<code>argparse</code>和<code>logging</code>库很好用。</p>
+<p>之前看GitHub上很多代码，都使用了<code>argparse</code>库，感觉没有什么用，还增加了代码的复杂度，但现在发现，在写大型代码时，使用<code>argparse</code>很方便。一是可以传递不同的参数，同时训练不同超参数(手动并行炼丹)；二是调整超参数更方便。。。</p>
+<p>另一个是logging库(或者用tensorboard)，设置如下，相比<code>print</code>的优点是：一可以记录打印log的时间(可以用来查看训练和测试所用时间长短)；二是很方便输出到文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+    <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(filename)s</span><span class="s1">[line:</span><span class="si">%(lineno)d</span><span class="s1">] </span><span class="si">%(levelname)s</span><span class="s1"> : </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span>
+<span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;123456&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">SongLei</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-09-07
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>
+          <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a>
+          <a href="/tags/visiontransformer/">VisionTransformer</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/">
+            <span class="next-text nav-default">AutoML框架测评</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/s974534426" class="iconfont icon-github" title="github"></a>
+  <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("03/01/2021 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
+  </span>
+</div>
+
+
+
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

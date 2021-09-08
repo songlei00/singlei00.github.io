@@ -18,10 +18,10 @@
     
     <item>
       <title>AutoML调研</title>
-      <link>https://songlei.me/post/ai/nas%E8%B0%83%E7%A0%94/</link>
+      <link>https://songlei.me/post/ai/automl%E8%B0%83%E7%A0%94/</link>
       <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://songlei.me/post/ai/nas%E8%B0%83%E7%A0%94/</guid>
+      <guid>https://songlei.me/post/ai/automl%E8%B0%83%E7%A0%94/</guid>
       <description>&lt;p&gt;AutoML包含超参数优化HPO、神经网络架构搜索NAS、神经网络压缩、自动特征选择等多个部分。本文对HPO和NAS部分的一些论文和框架做一个整理。&lt;/p&gt;</description>
     </item>
     

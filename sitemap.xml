@@ -9,6 +9,83 @@
   </url>
   
   <url>
+    <loc>https://songlei.me/categories/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/post/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/tags/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%B7%A5%E5%85%B7%E7%AF%87/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/tags/visiontransformer/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/categories/visiontransformer/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/</loc>
+    <lastmod>2021-09-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://songlei.me/tags/automl/</loc>
     <lastmod>2021-08-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -30,14 +107,7 @@
   </url>
   
   <url>
-    <loc>https://songlei.me/post/ai/nas%E8%B0%83%E7%A0%94/</loc>
-    <lastmod>2021-08-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://songlei.me/categories/</loc>
+    <loc>https://songlei.me/post/ai/automl%E8%B0%83%E7%A0%94/</loc>
     <lastmod>2021-08-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -58,13 +128,6 @@
   </url>
   
   <url>
-    <loc>https://songlei.me/post/</loc>
-    <lastmod>2021-08-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://songlei.me/tags/pytorch/</loc>
     <lastmod>2021-08-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -79,35 +142,7 @@
   </url>
   
   <url>
-    <loc>https://songlei.me/post/code/pytorch%E6%98%BE%E5%AD%98%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2021-08-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://songlei.me/</loc>
-    <lastmod>2021-08-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://songlei.me/tags/</loc>
-    <lastmod>2021-08-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://songlei.me/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
-    <lastmod>2021-08-24T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://songlei.me/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
+    <loc>https://songlei.me/post/ai/pytorch%E6%98%BE%E5%AD%98%E5%88%86%E6%9E%90/</loc>
     <lastmod>2021-08-24T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -130,27 +165,6 @@
   <url>
     <loc>https://songlei.me/categories/%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2021-07-30T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://songlei.me/post/code/python%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/</loc>
-    <lastmod>2021-07-29T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://songlei.me/tags/%E5%85%B6%E4%BB%96/</loc>
-    <lastmod>2021-07-29T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://songlei.me/categories/%E5%85%B6%E4%BB%96/</loc>
-    <lastmod>2021-07-29T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -255,6 +269,20 @@
   
   <url>
     <loc>https://songlei.me/post/code/python%E7%88%AC%E8%99%AB%E5%88%B7%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%87%8F/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/tags/%E5%85%B6%E4%BB%96/</loc>
+    <lastmod>2021-03-03T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://songlei.me/categories/%E5%85%B6%E4%BB%96/</loc>
     <lastmod>2021-03-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
