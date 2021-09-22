@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Vision Transformer复现-原理及代码细节篇 - SongLei&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="SongLei" /><meta name="description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文原理及代码细节篇，主要讲解ViT的网络结构和训练的trick。
+" /><meta name="keywords" content="AI, Sim2Real" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
+
+
+<link rel="canonical" href="https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BB%A3%E7%A0%81%E7%BB%86%E8%8A%82%E7%AF%87/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Vision Transformer复现-原理及代码细节篇" />
+<meta property="og:description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文原理及代码细节篇，主要讲解ViT的网络结构和训练的trick。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BB%A3%E7%A0%81%E7%BB%86%E8%8A%82%E7%AF%87/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-08-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-27T00:00:00+00:00" />
+
+<meta itemprop="name" content="Vision Transformer复现-原理及代码细节篇">
+<meta itemprop="description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文原理及代码细节篇，主要讲解ViT的网络结构和训练的trick。"><meta itemprop="datePublished" content="2021-08-27T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-08-27T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2547">
+<meta itemprop="keywords" content="人工智能,计算机视觉,VisionTransformer," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vision Transformer复现-原理及代码细节篇"/>
+<meta name="twitter:description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文原理及代码细节篇，主要讲解ViT的网络结构和训练的trick。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Song Lei&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/me/">
+        <li class="mobile-menu-item">Me</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Song Lei&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/me/">Me</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Vision Transformer复现-原理及代码细节篇</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-08-27 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"> 计算机视觉 </a>
+            <a href="/categories/visiontransformer/"> VisionTransformer </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-vit论文-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale">1. ViT论文 An Image Is Worth 16x16 Words: Transformers for Image Recognition at Scale</a>
+      <ul>
+        <li><a href="#1-网络架构">1. 网络架构</a></li>
+        <li><a href="#2-finetune">2. FineTune</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-trick总结">2. Trick总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文原理及代码细节篇，主要讲解ViT的网络结构和训练的trick。</p>
+<p>这个系列的文章分为三篇：</p>
+<ol>
+<li>原理及代码细节篇：讲解ViT的结构和代码实现细节。</li>
+<li>工具篇：记录复现大型炼丹的过程中，提高效率和debug的工具。</li>
+<li>Bug篇：记录我遇到的一堆bug。。。</li>
+</ol>
+<h1 id="1-vit论文-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale">1. ViT论文 An Image Is Worth 16x16 Words: Transformers for Image Recognition at Scale</h1>
+<p>ViT将transformer架构应用在视觉问题上，将每个像素块(patch)看做是NLP中的token，通过transformer的encoder结构提取特征，然后进行分类。该论文也说明了：在超大的数据集(JFT-300M或ImageNet)上进行预训练然后迁移到中小数据集(ImageNet、CIFAR100等)上，性能超越了SOTA。并且随着数据的增大，模型性能会越来越好，还没有出现瓶颈(简单来说，数据大到300M张图片就能轻松超过sota)。</p>
+<h2 id="1-网络架构">1. 网络架构</h2>
+<p>ViT的计算过程如下：</p>
+<ol>
+<li>
+<p>Embedding层，图片按像素块划分，转化为patch：输入为(H, W, C)的图片，H为图片的高，W为宽，C为channel数量，将图片划分为(P, P, C)的patch，每个patch拉伸为一维向量，所以一维向量的维数为$P<em>P</em>C$，个数为$N=(H<em>W)/(P</em>P)$，然后通过转化为(N, D)的矩阵。数学形式：第i个patch块的表示为$x_p^i$，Embedding层计算为$x_p^iE, E\in R^{(P^2C)*D}$，即做一个到D维的线性映射。
+代码实现：</p>
+<ol>
+<li>第一种实现使用<code>einops.layers.torch</code>中的<code>Rearrange('b c (h p1) (w p2) -&gt; b (h w) (p1 p2 c)', p1 = patch_height, p2 = patch_width)</code>，该函数将一个四维的输入(三维是图像，一维是batch)进行reshape操作。</li>
+<li>第二种实现是使用<code>Conv2d</code>，即<code>nn.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=patch_size)</code>。</li>
+</ol>
+</li>
+<li>
+<p>添加class token：所有的patch映射后的结果为$[x_p^1E; &hellip;; x_p^NE]$，然后在矩阵的第一行之前添加一个learnable向量$x_{class}$，作为class token。添加之后的结果为$[x_{class}; x_p^1E; &hellip;; x_p^NE]$。在最后分类时，只使用class token部分的向量，不使用其他维度的向量。
+代码实现时需要创建一个class token向量，并且进行一个简单的拼接操作。</p>
+</li>
+<li>
+<p>Position embedding：添加position embedding维持位置信息，$z_0 = [x_{class}; x_p^1E; &hellip;; x_p^NE] + E_{pos}, E_{pos}\in R^{(N+1)*D}$，$z_0$为encoder的输入。</p>
+</li>
+<li>
+<p>Encoder：encoder与NLP的transformer中基本相同，一个Multi-head self attention，和一个MLP，并且使用resnet的结构，$z_l' = MSA(LN(z_{l-1}))+z_{l-1}$，$z_l = MLP(LN(z_l')) + z_l'$。使用了Layer Norm层，MLP的结构为两层网络，使用GELU的激活函数。
+这部分的代码实现与transformer的encoder架构实现基本相同。</p>
+</li>
+<li>
+<p>分类：encoder的输出为$z_L$，使用第一行的class token作为分类输入，第一行为$z_L^0$，通过一个LN层，然后使用单隐层MLP作为分类器，即$y = classifier(LN(z_L^0))$，单隐层MLP将D维的分类向量映射到K维，K是类别数。</p>
+</li>
+</ol>
+<h2 id="2-finetune">2. FineTune</h2>
+<p>将最后一个MLP分类层替换为新的D到K维映射，并且使用比预训练更高的分辨率图像(论文中引用的文献表明使用比预训练更高分辨率的图片可以提升效果)进行finetune，可以达到超过SOTA的性能。</p>
+<p>但ViT直接在中等规模的数据集上训练时，效果会差于SOTA，文中分析的原因是transformer结构缺少inductive bias，(CNN的卷积结构会假设数据为图像，具有旋转不变性和局部性)，在大数据集上，transformer能够学到inductive bias。</p>
+<h1 id="2-trick总结">2. Trick总结</h1>
+<p>复现上来说还是有一定难度，即使是ViT base在ImageNet 1k上训练时，也无法使用论文中提出的batchsize，所以需要调小batchsize或使用模型并行。我尝试了预处理之后直接使用ViT架构训练，发现好像训不起来，参考了网上的代码后，发现加了很多trick。。。总结如下：</p>
+<ol>
+<li>模型的dropout rate，decoder中的每层block使用逐渐增加的dropout，即<code>torch.linspace(0, drop_path_rate, depth)</code>。</li>
+<li>优化器：使用SGD或Adam，并且使用weight decay(这个应该是一个非常小的值如1e-4，google论文中那么大的值应该是无法训练的)。</li>
+<li>学习率调节：使用了warmup，cosine，lr noise。在每个batch之后调节学习率。
+<ol>
+<li>初始时使用非常小的学习率，然后在warmup阶段线性增加到设定的学习率。</li>
+<li>warmup后开始cosine调整得到当前学习率。</li>
+<li>在前面两步之后都要对lr添加噪声。添加的噪声是标准正态分布，并且保证添加的噪声的绝对值不会超过某个范围。</li>
+</ol>
+</li>
+<li>模型EMA，对模型的权重滑动平均。记录一个训练模型m，一个滑动平均模型ema，训练时使用训练模型，训练完成后按照$ema_x = decay * ema_x + (1 - decay) * m_x$的公式更新，评估和保存时都使用滑动平均模型ema。</li>
+<li>mixup/cutmix：mixup是按比例将两个图片混合，获得新的图片，将输入和label以$x = \lambda x_i + (1-\lambda)x_j, y = \lambda y_i + (1-\lambda) y_j$的方式混合，其中$\lambda\in [0, 1], \lambda \sim Beta(\alpha, \alpha)$。而cutmix则是随机挑选某个区域，替换为另一张图片的区域。</li>
+<li>图片预处理：随机裁剪一定比例的图片，然后使用插值的方法将图片resize到特定大小(比如224)；然后以0.5的概率沿垂直方向翻转；然后规范化到01之间；再使用ImageNet上的均值和标准差normalize。</li>
+<li>目标函数：训练集使用mixup/cutmix时，使用soft target crossentropy，即</li>
+<li>梯度clip，将梯度clip到-1到1之间。</li>
+</ol>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">SongLei</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-08-27
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>
+          <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a>
+          <a href="/tags/visiontransformer/">VisionTransformer</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%B7%A5%E5%85%B7%E7%AF%87/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Vision Transformer复现-工具篇</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/">
+            <span class="next-text nav-default">AutoML框架测评</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/s974534426" class="iconfont icon-github" title="github"></a>
+  <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("03/01/2021 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
+  </span>
+</div>
+
+
+
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

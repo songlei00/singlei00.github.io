@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>Vision Transformer复现-原理及代码细节篇</title>
+      <link>https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BB%A3%E7%A0%81%E7%BB%86%E8%8A%82%E7%AF%87/</link>
+      <pubDate>Fri, 27 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BB%A3%E7%A0%81%E7%BB%86%E8%8A%82%E7%AF%87/</guid>
+      <description>&lt;p&gt;最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文原理及代码细节篇，主要讲解ViT的网络结构和训练的trick。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>AutoML框架测评</title>
       <link>https://songlei.me/post/ai/automl%E6%A1%86%E6%9E%B6%E8%AF%84%E6%B5%8B/</link>
       <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
@@ -86,24 +95,6 @@
       
       <guid>https://songlei.me/post/website/%E7%BD%91%E7%AB%99%E5%BA%95%E9%83%A8%E6%B7%BB%E5%8A%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</guid>
       <description>&lt;p&gt;在网站的底部添加网站运行时间的代码。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>6月论文总结</title>
-      <link>https://songlei.me/post/paper/202106/</link>
-      <pubDate>Tue, 01 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://songlei.me/post/paper/202106/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>5月论文总结</title>
-      <link>https://songlei.me/post/paper/202105/</link>
-      <pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://songlei.me/post/paper/202105/</guid>
-      <description></description>
     </item>
     
     <item>
