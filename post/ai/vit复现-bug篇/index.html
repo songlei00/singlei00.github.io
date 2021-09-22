@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Vision Transformer复现-bug篇 - SongLei&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="SongLei" /><meta name="description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。
+" /><meta name="keywords" content="AI, Sim2Real" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
+
+
+<link rel="canonical" href="https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-bug%E7%AF%87/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Vision Transformer复现-bug篇" />
+<meta property="og:description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-bug%E7%AF%87/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-08-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-27T00:00:00+00:00" />
+
+<meta itemprop="name" content="Vision Transformer复现-bug篇">
+<meta itemprop="description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。"><meta itemprop="datePublished" content="2021-08-27T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-08-27T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1053">
+<meta itemprop="keywords" content="人工智能,计算机视觉,VisionTransformer," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vision Transformer复现-bug篇"/>
+<meta name="twitter:description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Song Lei&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/me/">
+        <li class="mobile-menu-item">Me</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Song Lei&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/me/">Me</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Vision Transformer复现-bug篇</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-08-27 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"> 计算机视觉 </a>
+            <a href="/categories/visiontransformer/"> VisionTransformer </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-pytorch多机多卡训练比单机还慢">1. PyTorch多机多卡训练比单机还慢。。。</a></li>
+    <li><a href="#2-多机训练时打印的不同机器的验证集准确率不同">2. 多机训练时，打印的不同机器的验证集准确率不同</a></li>
+    <li><a href="#3-nnmodulelist">3. nn.ModuleList</a></li>
+    <li><a href="#4-多机多卡训练卡死">4. 多机多卡训练卡死</a></li>
+    <li><a href="#5-使用混合精度后显存没有任何优化">5. 使用混合精度后，显存没有任何优化</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。</p>
+<p>这个系列的文章分为三篇：</p>
+<ol>
+<li>原理及代码细节篇：讲解ViT的结构和代码实现细节。</li>
+<li>工具篇：记录复现大型炼丹的过程中，提高效率和debug的工具。</li>
+<li>Bug篇：记录我遇到的一堆bug。。。</li>
+</ol>
+<h1 id="1-pytorch多机多卡训练比单机还慢">1. PyTorch多机多卡训练比单机还慢。。。</h1>
+<p>这个原因需要具体分析，我在对每行代码的时间进行分析后，发现主要是<code>loss.backward()</code>这一行在多机情况下运行时间加倍，这一行在多机训练时，执行的操作是在多机之间同步梯度，需要将所有的梯度信息进行传播。</p>
+<p>在网络比较大时，梯度信息占往往会比较大(高达几个G)，所以通信时开销很大。解决方法一是减少需要传递的梯度，比如使用更小的模型；二是减少传递梯度的次数，比如增大batchsize，使得同一个epoch中，backward操作次数减少。</p>
+<h1 id="2-多机训练时打印的不同机器的验证集准确率不同">2. 多机训练时，打印的不同机器的验证集准确率不同</h1>
+<p>原因：验证集的sampler也和训练集一样使用了distributed sampler，所以不同机子读取的验证集不同，导致准确率略有差别。解决方法就是使用全部的验证集或固定的子集进行验证。</p>
+<h1 id="3-nnmodulelist">3. nn.ModuleList</h1>
+<p>如果要使用列表存储重复的层操作，比如在ViT中我需要使用12个相同的block结构，一定要使用nn.ModuleList，不能使用list。</p>
+<p>因为torch的很多操作比如<code>to('cuda')</code>操作，需要遍历所有的层进行递归执行。如果使用list的话，不会自动处理list中的层，但使用nn.ModuleList时，就会对nn.ModuleList中的所有的层执行对应操作。</p>
+<h1 id="4-多机多卡训练卡死">4. 多机多卡训练卡死</h1>
+<p>多机多卡训练在开始时就一直卡住，无法进入训练的过程。这个时候可能是因为多机之间的通信问题。首先确定多台机器能不能ping通等等，如果检查都没有问题，则可能是由于GPU通信的问题。</p>
+<p>PyTorch多机多卡的训练需要使用GPU的nccl进行通信，如果无法正常使用，可能的问题是nccl没有正常安装等等，建议使用环境变量切换到debug模式<code>export NCCL_DEBUG=info</code>和<code>export NCCL_DEBUG_SUBSYS=ALL</code>。</p>
+<h1 id="5-使用混合精度后显存没有任何优化">5. 使用混合精度后，显存没有任何优化</h1>
+<p>需要查看GPU是否支持apex FP16等精度，像通常的笔记本的1060等显卡是不支持混合精度的，v100则是支持的。所以使用1060等训练时，加入混合精度没有任何变化也是正常的。</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">SongLei</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-08-27
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>
+          <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a>
+          <a href="/tags/visiontransformer/">VisionTransformer</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%B7%A5%E5%85%B7%E7%AF%87/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Vision Transformer复现-工具篇</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BB%A3%E7%A0%81%E7%BB%86%E8%8A%82%E7%AF%87/">
+            <span class="next-text nav-default">Vision Transformer复现-原理及代码细节篇</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/s974534426" class="iconfont icon-github" title="github"></a>
+  <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("03/01/2021 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
+  </span>
+</div>
+
+
+
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
