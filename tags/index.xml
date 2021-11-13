@@ -6,7 +6,16 @@
     <description>Recent content in Tags on SongLei&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 07 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>人工智能</title>
+      <link>https://songlei.me/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>VisionTransformer</title>
       <link>https://songlei.me/tags/visiontransformer/</link>
@@ -17,11 +26,11 @@
     </item>
     
     <item>
-      <title>人工智能</title>
-      <link>https://songlei.me/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</link>
+      <title>笔记</title>
+      <link>https://songlei.me/tags/%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://songlei.me/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</guid>
+      <guid>https://songlei.me/tags/%E7%AC%94%E8%AE%B0/</guid>
       <description></description>
     </item>
     
@@ -58,15 +67,6 @@
       <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
       
       <guid>https://songlei.me/tags/pytorch/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>笔记</title>
-      <link>https://songlei.me/tags/%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Fri, 30 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://songlei.me/tags/%E7%AC%94%E8%AE%B0/</guid>
       <description></description>
     </item>
     

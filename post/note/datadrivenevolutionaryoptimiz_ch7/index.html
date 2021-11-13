@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Vision Transformer复现-bug篇 - SongLei&#39;s Blog</title>
+  <title>DataDrivenEvolutionaryOptimiz ch7 - SongLei&#39;s Blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="SongLei" /><meta name="description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。
+<meta name="author" content="SongLei" /><meta name="description" content="Surrogate-Assisted Multi-objective Evolutionary Optimization
 " /><meta name="keywords" content="AI, Sim2Real" />
 
 
@@ -27,7 +27,7 @@
 <meta name="generator" content="Hugo 0.85.0 with theme even" />
 
 
-<link rel="canonical" href="https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-bug%E7%AF%87/" />
+<link rel="canonical" href="https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch7/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -40,20 +40,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Vision Transformer复现-bug篇" />
-<meta property="og:description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。" />
+<meta property="og:title" content="DataDrivenEvolutionaryOptimiz ch7" />
+<meta property="og:description" content="Surrogate-Assisted Multi-objective Evolutionary Optimization" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-bug%E7%AF%87/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-08-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-08-27T00:00:00+00:00" />
+<meta property="og:url" content="https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch7/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-09-01T00:00:00+00:00" />
 
-<meta itemprop="name" content="Vision Transformer复现-bug篇">
-<meta itemprop="description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。"><meta itemprop="datePublished" content="2021-08-27T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-08-27T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1053">
-<meta itemprop="keywords" content="人工智能,计算机视觉,VisionTransformer," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Vision Transformer复现-bug篇"/>
-<meta name="twitter:description" content="最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。"/>
+<meta itemprop="name" content="DataDrivenEvolutionaryOptimiz ch7">
+<meta itemprop="description" content="Surrogate-Assisted Multi-objective Evolutionary Optimization"><meta itemprop="datePublished" content="2021-09-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-09-01T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1517">
+<meta itemprop="keywords" content="笔记," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DataDrivenEvolutionaryOptimiz ch7"/>
+<meta name="twitter:description" content="Surrogate-Assisted Multi-objective Evolutionary Optimization"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -126,14 +126,12 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Vision Transformer复现-bug篇</h1>
+      <h1 class="post-title">DataDrivenEvolutionaryOptimiz ch7</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2021-08-27 </span>
+        <span class="post-time"> 2021-09-01 </span>
         <div class="post-category">
-            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
-            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"> 计算机视觉 </a>
-            <a href="/categories/visiontransformer/"> VisionTransformer </a>
+            <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
             </div>
         
       </div>
@@ -144,36 +142,53 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-pytorch多机多卡训练比单机还慢">1. PyTorch多机多卡训练比单机还慢。。。</a></li>
-    <li><a href="#2-多机训练时打印的不同机器的验证集准确率不同">2. 多机训练时，打印的不同机器的验证集准确率不同</a></li>
-    <li><a href="#3-nnmodulelist">3. nn.ModuleList</a></li>
-    <li><a href="#4-多机多卡训练卡死">4. 多机多卡训练卡死</a></li>
-    <li><a href="#5-使用混合精度后显存没有任何优化">5. 使用混合精度后，显存没有任何优化</a></li>
+    <li><a href="#1-evolutionary-multi-objective-optimization">1. Evolutionary Multi-objective Optimization</a></li>
+    <li><a href="#2-gaussian-process-assisted-randomized-weighted-aggregation">2. Gaussian Process Assisted Randomized Weighted Aggregation</a></li>
+    <li><a href="#3-high-dimensional-multi-objective-bayesian-optimization">3. High-Dimensional Multi-objective Bayesian Optimization</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <p>最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为bug篇，总结一下我遇到的bug。</p>
-<p>这个系列的文章分为三篇：</p>
+      <p>Surrogate-Assisted Multi-objective Evolutionary Optimization</p>
+<h1 id="1-evolutionary-multi-objective-optimization">1. Evolutionary Multi-objective Optimization</h1>
+<p>将多目标转化为单目标的两种方法：</p>
 <ol>
-<li>原理及代码细节篇：讲解ViT的结构和代码实现细节。</li>
-<li>工具篇：记录复现大型炼丹的过程中，提高效率和debug的工具。</li>
-<li>Bug篇：记录我遇到的一堆bug。。。</li>
+<li>Weighted aggregation methods：即加一个用于求和的权重向量。</li>
+<li>Weighted metrics methods：$F(x) = (\sum w_i[f_i(x) - z_i^*])^{\frac{1}{p}}$，$z$是ideal point。</li>
+<li>$\epsilon$-constrain method：将一个目标函数作为优化目标，其他的作为constrain，即$\min f_j(x), s.t. f_i(x) \leq \epsilon_i, i\neq j$。</li>
 </ol>
-<h1 id="1-pytorch多机多卡训练比单机还慢">1. PyTorch多机多卡训练比单机还慢。。。</h1>
-<p>这个原因需要具体分析，我在对每行代码的时间进行分析后，发现主要是<code>loss.backward()</code>这一行在多机情况下运行时间加倍，这一行在多机训练时，执行的操作是在多机之间同步梯度，需要将所有的梯度信息进行传播。</p>
-<p>在网络比较大时，梯度信息占往往会比较大(高达几个G)，所以通信时开销很大。解决方法一是减少需要传递的梯度，比如使用更小的模型；二是减少传递梯度的次数，比如增大batchsize，使得同一个epoch中，backward操作次数减少。</p>
-<h1 id="2-多机训练时打印的不同机器的验证集准确率不同">2. 多机训练时，打印的不同机器的验证集准确率不同</h1>
-<p>原因：验证集的sampler也和训练集一样使用了distributed sampler，所以不同机子读取的验证集不同，导致准确率略有差别。解决方法就是使用全部的验证集或固定的子集进行验证。</p>
-<h1 id="3-nnmodulelist">3. nn.ModuleList</h1>
-<p>如果要使用列表存储重复的层操作，比如在ViT中我需要使用12个相同的block结构，一定要使用nn.ModuleList，不能使用list。</p>
-<p>因为torch的很多操作比如<code>to('cuda')</code>操作，需要遍历所有的层进行递归执行。如果使用list的话，不会自动处理list中的层，但使用nn.ModuleList时，就会对nn.ModuleList中的所有的层执行对应操作。</p>
-<h1 id="4-多机多卡训练卡死">4. 多机多卡训练卡死</h1>
-<p>多机多卡训练在开始时就一直卡住，无法进入训练的过程。这个时候可能是因为多机之间的通信问题。首先确定多台机器能不能ping通等等，如果检查都没有问题，则可能是由于GPU通信的问题。</p>
-<p>PyTorch多机多卡的训练需要使用GPU的nccl进行通信，如果无法正常使用，可能的问题是nccl没有正常安装等等，建议使用环境变量切换到debug模式<code>export NCCL_DEBUG=info</code>和<code>export NCCL_DEBUG_SUBSYS=ALL</code>。</p>
-<h1 id="5-使用混合精度后显存没有任何优化">5. 使用混合精度后，显存没有任何优化</h1>
-<p>需要查看GPU是否支持apex FP16等精度，像通常的笔记本的1060等显卡是不支持混合精度的，v100则是支持的。所以使用1060等训练时，加入混合精度没有任何变化也是正常的。</p>
+<p>上面的这些方法都需要人为定义一些权重或限制，并且每次只能求得一个pareto optimal solution。使用meta-heuristics例如EA这类基于种群的方法，则可以一次求得多个最优点。</p>
+<ol>
+<li>Decomposition Approaches：基于分解的方法将MOP转化为多个SOPs，比如使用不同的权重获得多个SOPs，其中最著名的是MOEA/D</li>
+<li>Dominance Based Approaches：NSGA-II。</li>
+<li>Performance Indicator Based Approaches：performance indicator可以对一个非支配的解集合计算accuracy和diversity，这样我们可以用performance indicator比较两个解集的质量。</li>
+</ol>
+<h1 id="2-gaussian-process-assisted-randomized-weighted-aggregation">2. Gaussian Process Assisted Randomized Weighted Aggregation</h1>
+<p>EGO(Efficient Global Optimization)：使用GP作为surrogate model，过程和贝叶斯优化类似。初始化产生样本时，使用Latin hypercube sampling(LHS)，进行分层抽样，保证在概率很小的地方也有样本被采到：将样本空间均匀划分，然后在每个划分的块中采样(这应该也是起名为超立方的原因)，然后对所有被采样的样本打乱顺序重排。</p>
+<p>ParEGO，将MOP转化为多个SOPs，然后使用surrogate-assisted single-objective optimization算法，例如EGO。可以看做是EGO解决多目标优化问题的变种，流程如下：通过LHS获得初始解，对每个个体，随机采样一个权重向量$\lambda$，将多目标转化为$f_{\lambda}(x) = \max_{j=1}^m(\lambda_j f_j(x)) + \rho \sum_{j=1}^m\lambda_jf_j(x)$，然后使用EGO求解这个单目标优化问题，求解后判断是否停止，若不停止则重新分配权重，重复。</p>
+<p>MOEA/D：分为decomposition、search、collaboration三步。</p>
+<ol>
+<li>decomposition：初始时产生N个均匀分布的权重$\lambda$，然后将多目标转化为单目标$g^{te}(x, \lambda) = \max_{j=1}^m(\lambda_j(\hat{{f}_j(x) - z_j))}$，相似权重的解是neighbors。</li>
+<li>search：在每一轮中，通过crossover和mutation产生后代，每个权重向量产生的最好的解会保存下来。</li>
+<li>collaboration：分为mating selection和replacement两步，mating selection中会从邻居中选择解产生子代，replacement中会将新的解给邻居，看是否更好。</li>
+</ol>
+<p>MOEA/D-EGO，相比ParEGO对diversity进行了改进。步骤是：</p>
+<ol>
+<li>初始化：与MOEA相同。</li>
+<li>在训练集上使用FCM聚类(该方法可以让一个样本分属于多个类别)。</li>
+<li>对每个类别中每个目标函数建立GP。</li>
+<li>最大化EI。</li>
+<li>使用kmeans对子代解分类。</li>
+<li>在每个类别中选择一个解，使用真实评估函数评估，并加入训练集。</li>
+</ol>
+<h1 id="3-high-dimensional-multi-objective-bayesian-optimization">3. High-Dimensional Multi-objective Bayesian Optimization</h1>
+<p>主要挑战是</p>
+<ol>
+<li>高维时GP求解的复杂度过高。通过使用集成的学习器替代GP，使用初始特征、经过选择的特征和经过提取的特征训练学习器，然后集成。</li>
+<li>单目标贝叶斯优化向多目标贝叶斯优化的扩展。单目标向多目标转化时，在求解acquisition function时，无法直接取最大值。不同的方法根据acquisition function选择下一个采样点的方法不同，MOEA/D-EGO将多目标转化为单目标，然后求解。</li>
+</ol>
+<p>HeE-MOEA(heterogeneous ensemble)：使用heterogeneous ensemble。</p>
     </div>
 
     <div class="post-copyright">
@@ -184,7 +199,7 @@
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2021-08-27
+        2021-09-01
         
     </span>
   </p>
@@ -193,18 +208,16 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>
-          <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a>
-          <a href="/tags/visiontransformer/">VisionTransformer</a>
+          <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/note/datadrivenevolutionaryoptimiz_ch6/">
+        <a class="prev" href="/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%B7%A5%E5%85%B7%E7%AF%87/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">DataDrivenEvolutionaryOptimiz ch6</span>
+            <span class="prev-text nav-default">Vision Transformer复现-工具篇</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BB%A3%E7%A0%81%E7%BB%86%E8%8A%82%E7%AF%87/">
-            <span class="next-text nav-default">Vision Transformer复现-原理及代码细节篇</span>
+        <a class="next" href="/post/note/datadrivenevolutionaryoptimiz_ch6/">
+            <span class="next-text nav-default">DataDrivenEvolutionaryOptimiz ch6</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>

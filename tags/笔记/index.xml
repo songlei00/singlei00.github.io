@@ -6,7 +6,43 @@
     <description>Recent content in 笔记 on SongLei&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 30 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DataDrivenEvolutionaryOptimiz ch8</title>
+      <link>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch8/</link>
+      <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch8/</guid>
+      <description>&lt;p&gt;Surrogate-Assisted Many-objective Evolutionary Optimization&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DataDrivenEvolutionaryOptimiz ch7</title>
+      <link>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch7/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch7/</guid>
+      <description>&lt;p&gt;Surrogate-Assisted Multi-objective Evolutionary Optimization&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DataDrivenEvolutionaryOptimiz ch6</title>
+      <link>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch6/</link>
+      <pubDate>Sat, 28 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch6/</guid>
+      <description>&lt;p&gt;Multi-surrogate-Assisted Single-objective Optimization&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MDN笔记</title>
+      <link>https://songlei.me/post/note/%E5%89%8D%E7%AB%AFmdn%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/%E5%89%8D%E7%AB%AFmdn%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;p&gt;学习一下网站搭建。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>DataDrivenEvolutionaryOptimiz ch5</title>
       <link>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch5/</link>

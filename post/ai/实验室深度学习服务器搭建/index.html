@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>实验室深度学习服务器搭建 - SongLei&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="SongLei" /><meta name="description" content="在实验室的服务器上搭建深度学习环境。
+" /><meta name="keywords" content="AI, Sim2Real" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
+
+
+<link rel="canonical" href="https://songlei.me/post/ai/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="实验室深度学习服务器搭建" />
+<meta property="og:description" content="在实验室的服务器上搭建深度学习环境。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://songlei.me/post/ai/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-10-29T00:00:00+00:00" />
+
+<meta itemprop="name" content="实验室深度学习服务器搭建">
+<meta itemprop="description" content="在实验室的服务器上搭建深度学习环境。"><meta itemprop="datePublished" content="2021-10-29T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-10-29T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1435">
+<meta itemprop="keywords" content="人工智能," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="实验室深度学习服务器搭建"/>
+<meta name="twitter:description" content="在实验室的服务器上搭建深度学习环境。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Song Lei&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/me/">
+        <li class="mobile-menu-item">Me</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Song Lei&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/me/">Me</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">实验室深度学习服务器搭建</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-10-29 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-安装系统">1. 安装系统</a>
+      <ul>
+        <li><a href="#1-安装ubuntu">1. 安装ubuntu</a></li>
+        <li><a href="#2-配置nvidia显卡">2. 配置nvidia显卡</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-创建和登录用户">2. 创建和登录用户</a></li>
+    <li><a href="#3-安装python">3. 安装python</a></li>
+    <li><a href="#4-在服务器上写代码">4. 在服务器上写代码</a>
+      <ul>
+        <li><a href="#1-使用vscode编程">1. 使用vscode编程</a></li>
+        <li><a href="#2-使用jupyter编程">2. 使用jupyter编程</a>
+          <ul>
+            <li><a href="#1-生成配置文件">1. 生成配置文件</a></li>
+            <li><a href="#2-生成密钥">2. 生成密钥</a></li>
+            <li><a href="#3-修改配置文件">3. 修改配置文件</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#5-其他">5. 其他</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在实验室的服务器上搭建深度学习环境。</p>
+<h1 id="1-安装系统">1. 安装系统</h1>
+<h2 id="1-安装ubuntu">1. 安装ubuntu</h2>
+<p>具体安装省略，记录一个小bug，可能在给有独立显卡的台式机安装ubuntu双系统时遇到：在安装时，使用U盘启动这步，直接选择<code>try ubuntu</code>或<code>install ubuntu</code>都会出现黑屏的问题。</p>
+<p>解决方法：将光标移动到<code>install ubuntu</code>一项上，按e键，会进入一个可编辑的界面，将<code>quiet splash</code>修改为<code>nouveau.modeset=0 nomodeset</code>，然后按ctrl+x进入安装。之后在ubuntu安装nvidia驱动后，就正常了。如果没有安装驱动，每次进入前，都要用同样的方法将上面的<code>quiet splash</code>修改。</p>
+<h2 id="2-配置nvidia显卡">2. 配置nvidia显卡</h2>
+<p>具体分为两步：</p>
+<ol>
+<li>安装nvidia驱动，如果是图形界面的话，在<code>Software &amp; Updates</code>中的<code>Additional Drivers</code>中选择合适的驱动安装即可。</li>
+<li>在<a href="https://developer.nvidia.com/rdp/cudnn-download">官网</a>下载cudnn并安装。</li>
+</ol>
+<h1 id="2-创建和登录用户">2. 创建和登录用户</h1>
+<p>在linux上创建自己的用户，方便管理代码和安装应用。比如我们想要创建一个用户名是<code>haha</code>，密码是<code>123456</code>的用户，命令如下：</p>
+<ol>
+<li>添加用户：<code>useradd -d /home/haha -m haha</code>。</li>
+<li>设置密码(只有设置密码之后，才能登录用户)：<code>passwd haha</code>，然后输入密码。</li>
+<li>然后就可以通过<code>ssh haha@your_ip</code>的方式登录服务器了。登录后也可以设置bash：<code>chsh -s /bin/bash</code>或修改为zsh。</li>
+<li>加入root权限：使用<code>apt</code>下载时，如果出现<code>不在sudoers文件中</code>的报错，则需要将用户加入sudoers，执行<code>sudo vim /etc/sudoers</code>命令，在<code>root ALL=(ALL) ALL</code>的下一行加入<code>haha ALL=(ALL) ALL</code>，然后保存。</li>
+<li>删除用户：<code>userdel -r haha</code>。</li>
+</ol>
+<h1 id="3-安装python">3. 安装python</h1>
+<p>建议直接安装anaconda：</p>
+<ol>
+<li>首先下载安装脚本：<code>wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2021.05-Linux-x86_64.sh</code>，</li>
+<li>安装：<code>./Anaconda3-2021.05-Linux-x86_64.sh</code>。</li>
+<li>在<code>~/.bashrc</code>文件的尾部加入<code>alias python=~/anaconda3/bin/python3</code>和<code>alias pip=~/anaconda3/bin/pip</code>，保证我们使用的一定是自己目录下安装的python，而不是用的实验室其他人安装的python。然后执行命令<code>source .bashrc</code>更新配置。</li>
+<li>使用<code>pip</code>或<code>conda</code>安装需要的库。</li>
+</ol>
+<h1 id="4-在服务器上写代码">4. 在服务器上写代码</h1>
+<p>推荐两种方式：</p>
+<ol>
+<li>使用vscode的插件<code>Remote ssh</code>连接服务器</li>
+<li>使用jupyter写代码。使用jupyter hub。</li>
+</ol>
+<h2 id="1-使用vscode编程">1. 使用vscode编程</h2>
+<p>在网上搜vscode的插件<code>Remote ssh</code>。。。</p>
+<h2 id="2-使用jupyter编程">2. 使用jupyter编程</h2>
+<p>配置服务器上的jupyter，使得在服务器外也能使用jupyter编程。</p>
+<h3 id="1-生成配置文件">1. 生成配置文件</h3>
+<p><code>jupyter notebook --generate-config</code></p>
+<h3 id="2-生成密钥">2. 生成密钥</h3>
+<p>在命令行或python脚本中执行如下代码，然后输入两次密码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">notebook.auth</span> <span class="kn">import</span> <span class="n">passwd</span>
+<span class="n">passwd</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-修改配置文件">3. 修改配置文件</h3>
+<p><code>vim ~/.jupyter/jupyter_notebook_config.py</code></p>
+<p>输入如下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">c.NotebookApp.allow_remote_access = True
+c.NotebookApp.ip = &#39;*&#39;
+c.NotebookApp.open_browser = False
+c.NotebookApp.password = &#39;第二步产生的密钥&#39;
+c.NotebookApp.port = 8888
+</code></pre></td></tr></table>
+</div>
+</div><p>之后就可以在浏览器中输入<code>服务器IP:8888</code>访问服务器上的jupyter，并且使用jupyter直接在服务器上编程了。</p>
+<p>如果是使用jupyter lab，则也是类似的操作。</p>
+<h1 id="5-其他">5. 其他</h1>
+<ol>
+<li>查看linux版本：<code>cat /proc/version</code></li>
+<li>查看cpu信息：<code>lscpu</code></li>
+<li>关闭图形界面：<code>sudo /etc/init.d/gdm3 stop</code></li>
+</ol>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">SongLei</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-10-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/note/datadrivenevolutionaryoptimiz_ch8/">
+            <span class="next-text nav-default">DataDrivenEvolutionaryOptimiz ch8</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/s974534426" class="iconfont icon-github" title="github"></a>
+  <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("03/01/2021 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
+  </span>
+</div>
+
+
+
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

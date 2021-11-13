@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DataDrivenEvolutionaryOptimiz ch8 - SongLei&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="SongLei" /><meta name="description" content="Surrogate-Assisted Many-objective Evolutionary Optimization
+" /><meta name="keywords" content="AI, Sim2Real" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.85.0 with theme even" />
+
+
+<link rel="canonical" href="https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="DataDrivenEvolutionaryOptimiz ch8" />
+<meta property="og:description" content="Surrogate-Assisted Many-objective Evolutionary Optimization" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch8/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-09-07T00:00:00+00:00" />
+
+<meta itemprop="name" content="DataDrivenEvolutionaryOptimiz ch8">
+<meta itemprop="description" content="Surrogate-Assisted Many-objective Evolutionary Optimization"><meta itemprop="datePublished" content="2021-09-07T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-09-07T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2324">
+<meta itemprop="keywords" content="笔记," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DataDrivenEvolutionaryOptimiz ch8"/>
+<meta name="twitter:description" content="Surrogate-Assisted Many-objective Evolutionary Optimization"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Song Lei&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/me/">
+        <li class="mobile-menu-item">Me</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Song Lei&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/me/">Me</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DataDrivenEvolutionaryOptimiz ch8</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-09-07 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%AC%94%E8%AE%B0/"> 笔记 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-new-challenges-in-maoo">1. New Challenges in MaOO</a></li>
+    <li><a href="#2-evolutionary-many-objective-optimization-algorithms">2. Evolutionary Many-Objective Optimization Algorithms</a></li>
+    <li><a href="#3-gaussian-process-assisted-reference-vector-guided-many-objective-optimization">3. Gaussian Process Assisted Reference Vector Guided Many-Objective Optimization</a></li>
+    <li><a href="#4-classification-surrogate-assisted-many-objective-optimization">4. Classification Surrogate Assisted Many-Objective Optimization</a></li>
+    <li><a href="#5-dropout-neural-network-assisted-many-objective-optimization">5. Dropout Neural Network Assisted Many-Objective Optimization</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Surrogate-Assisted Many-objective Evolutionary Optimization</p>
+<h1 id="1-new-challenges-in-maoo">1. New Challenges in MaOO</h1>
+<p>Multi-objective时有两到三个目标，many-objective是有四个及以上，many-objective中的挑战是：</p>
+<ol>
+<li>随着目标函数的增多，选择压力减小，被支配的解会变少。</li>
+<li>Indicator-based MOEAs中计算复杂度上升。</li>
+<li>Decomposition-based搜索效率降低。</li>
+</ol>
+<p>解决方法：</p>
+<ol>
+<li>减少目标函数，删除冗余和不重要的目标。</li>
+<li>修改Pareto支配关系，使用$\epsilon$-dominance或$\alpha$-dominance。</li>
+<li>引入额外的criteria。</li>
+</ol>
+<p>在multi-objective中的一个基本假设是population-based方法中一个population可以近似一个pareto最优集合，但在many-objective的设定下，由于维度的增大，种群的最大数量限制下，无法准确近似pareto集合。另一个问题是在many-objective问题中，pareto集合的形状可能是不规则的：degenerate(pareto集合的维度小于m-1)、discrete、inverted。所以在many-objective中，使用performance比diversity更加合适。</p>
+<p>搜索Knee solutions，有一些指标用于评估搜索knee points和knee region的演化多目标算法：</p>
+<ol>
+<li>$KGD = \frac{1}{|S|}\sum_i^{|S|}d(x_i, R)$，评估了收敛性，S为获得的解集合，R为参考点集合，$d(x_i, R)$计算了解$x_i$距离参考解集合R中最近的点的距离。</li>
+<li>KIGD则相反，$KIGD = \frac{1}{R}\sum_i^{|R|}d(x_i^r, S)$，更小的KIGD意味着解更加平缓(even)。</li>
+<li>$KD = \frac{1}{|K|}\sum_i^{|K|}d(x_i^k, S)$，评估了completeness，$K$为所有knee points的集合。</li>
+</ol>
+<p>解决irregular fronts的方法有三类：</p>
+<ol>
+<li>Adaptation of reference vectors：</li>
+<li>Adaptation of reference points：</li>
+<li>Clustering methods：</li>
+</ol>
+<h1 id="2-evolutionary-many-objective-optimization-algorithms">2. Evolutionary Many-Objective Optimization Algorithms</h1>
+<p>Reference vector guided many-objective optimization(RVEA)主要解决decomposition-based算法中vector无法在pareto fronts上分布的问题：特点是使用vectors之间的角度而不是欧氏距离测量diversity：</p>
+<ol>
+<li>产生reference vector：首先使用canonical simplex lattice design在unit hyperplane上产生均匀分布的向量，然后normalize。</li>
+<li>然后使用任意的遗传操作生成子代，并且加入种群中，在进行选择之前，需要进行如下操作：
+<ol>
+<li>Objective translation：每个个体的每个目标函数值都减掉当前种群中最小的目标函数值。</li>
+<li>Population partition：selection操作是在由reference vector划分的子空间中进行，所以要先将所有的个体划分为N(N为reference vector数量)类，划分方法是计算个体到每个reference vector的角度，分入角度最小的类。</li>
+<li>Angle penalized distance：对第i个个体，假设属于第j类，则计算惩罚距离：$d_{i, j}(t) = P(\theta_{i, j}(t))||f_i'||, P(\theta_{i, j}(t)) = 1 + m(\frac{t}{t_{max}})^{\alpha}\theta_{i, j}(t)$。t为当前轮数，$t_{max}$为最大轮数，$\alpha$为控制P变化速度的超参数。随着演化的进行，diversity会越来越重要。</li>
+</ol>
+</li>
+<li>Reference vector adaptation：均匀分布的reference vector在很多情况下不会在pareto front上产生均匀分布的解，所以需要加入自适应，$v_i(t+1) = \frac{&lt;v_i(0), f^{max}(t+1) - f^{min}(t+1)&gt;}{v_i(0), f^{max}(t+1) - z^{min}(t+1)&gt;}$，自适应不应该每轮都做，建议每20代做一次。</li>
+</ol>
+<p>A Knee-Driven Many-Objective Optimization Algorithm(KnEA)解决dominance-based MOEAs的问题：主要是引入了second criterion。整体框架与NSGA-II类似。</p>
+<ol>
+<li>Weighted Distance Based Binary Tournament Mate Selection：选择父代的方法是，首先从父代中随机选择两个个体，如果一个支配另一个，则选择支配的那个；如果无法比较，则判断两个点是否为knee point，如果其中一个是，则选择knee point；如果都不是或都是，则根据weighted distance选择大的有一个；如果weighted distance相等，则随机选一个。
+Weighted distance计算方式是利用k
+个近邻：$DW = \sum_i^kw_{x_i}dis(x, x_i), w_{x_i} = \frac{r_{x_i}}{\sum_i^kr_{x_i}}, r_{x_i} = \frac{1}{|dis(x, x_i) - \frac{1}{k}\sum_i^k dis(x, x_i)|}$。</li>
+<li>Knee Point Based Environment Selection：对于rank相等的，不是通过crowding distance，而是选择knee distance更大的，计算如下：
+<ol>
+<li>Constriction of the hyperplane using boundary solutions，使用boundary solution构造超平面。</li>
+<li>Knee Point Based Environment Selection</li>
+</ol>
+</li>
+</ol>
+<p>A Two-Archive Algorithm for Many-Objective Optimization：是indicator-based和pareto dominance的方法，将convergence和diversity分别考虑(分为CA和DA两个部分)：</p>
+<ol>
+<li>CA阶段使用$I_{\epsilon +}$加速收敛，首先产生子代，然后评估：$I_{\epsilon +} = \min_{\epsilon}(f_i(x_1) - \epsilon \leq f_i(x_2), 1\leq i \leq m), Fitness(x_1) = \sum_{x_2\in P - {x_1}} -e^{-I_{\epsilon +}(x_2, x_1) / 0.05}$，即将fitness向量相距比较近的点赋予比较低的F值。</li>
+<li>DA选择diversity最大的解，使用$L_{\frac{1}{m}}$度量，其中m是目标函数的个数。</li>
+</ol>
+<p>Corner Sort for Many-Objective Optimization：快速($O(mN^2)$)获得解的非支配关系的一种方法。</p>
+<h1 id="3-gaussian-process-assisted-reference-vector-guided-many-objective-optimization">3. Gaussian Process Assisted Reference Vector Guided Many-Objective Optimization</h1>
+<p>使用高斯过程建模每个目标函数，又叫做K-RVEA(因为高斯过程又叫做Kriging model)。是Bayesian evolutionary optimization framework。</p>
+<h1 id="4-classification-surrogate-assisted-many-objective-optimization">4. Classification Surrogate Assisted Many-Objective Optimization</h1>
+<p>CSEA特点是surrogate学习候选解和reference solution的支配关系，而不是用surrogate预测fitness和uncertainty。</p>
+<h1 id="5-dropout-neural-network-assisted-many-objective-optimization">5. Dropout Neural Network Assisted Many-Objective Optimization</h1>
+<p>Enhanced inverted generational distance with non-contributing solution detection(IGD-NS)。</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">SongLei</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-09-07
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/ai/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">实验室深度学习服务器搭建</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%B7%A5%E5%85%B7%E7%AF%87/">
+            <span class="next-text nav-default">Vision Transformer复现-工具篇</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/s974534426" class="iconfont icon-github" title="github"></a>
+  <a href="https://songlei.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div>
+  <center>本站已经开心运行<span id="runtime_span"></span></center>
+  
+  <script type="text/javascript">
+    function show_runtime() {
+      window.setTimeout("show_runtime()", 1000);
+      start_time = new Date("03/01/2021 00:00:00");
+      cur_time = new Date();
+      run_time = cur_time.getTime()-start_time.getTime();
+      TIME_PER_DAY=24*60*60*1000;
+      day = run_time / TIME_PER_DAY;
+      floor_day = Math.floor(day);
+      hour = (day - floor_day) * 24;
+      floor_hour = Math.floor(hour);
+      minute = (hour - floor_hour) * 60;
+      floor_minute = Math.floor(minute);
+      floor_second = Math.floor((minute - floor_minute)*60);
+      runtime_span.innerHTML = floor_day+"天"+floor_hour+"小时"+floor_minute+"分"+floor_second+"秒"
+    } show_runtime();
+  </script>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Song Lei</span>
+  </span>
+</div>
+
+
+
+
+
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

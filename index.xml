@@ -6,7 +6,7 @@
     <description>Recent content on SongLei&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 07 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://songlei.me/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Me</title>
       <link>https://songlei.me/me/</link>
@@ -17,12 +17,48 @@
     </item>
     
     <item>
+      <title>实验室深度学习服务器搭建</title>
+      <link>https://songlei.me/post/ai/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Fri, 29 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/ai/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</guid>
+      <description>&lt;p&gt;在实验室的服务器上搭建深度学习环境。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DataDrivenEvolutionaryOptimiz ch8</title>
+      <link>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch8/</link>
+      <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch8/</guid>
+      <description>&lt;p&gt;Surrogate-Assisted Many-objective Evolutionary Optimization&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Vision Transformer复现-工具篇</title>
       <link>https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%B7%A5%E5%85%B7%E7%AF%87/</link>
       <pubDate>Tue, 07 Sep 2021 00:00:00 +0000</pubDate>
       
       <guid>https://songlei.me/post/ai/vit%E5%A4%8D%E7%8E%B0-%E5%B7%A5%E5%85%B7%E7%AF%87/</guid>
       <description>&lt;p&gt;最近在ImageNet数据集上复现Vision Transformer(ViT)，这应该是我第一次复现这样的大型实验，学到了很多东西，记录一下。本文为工具篇，共六个部分，包括：pytorch分布式训练、程序后台运行、GPU显存和时间分析、Makefile、命令行传递参数、logging库的使用。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DataDrivenEvolutionaryOptimiz ch7</title>
+      <link>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch7/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch7/</guid>
+      <description>&lt;p&gt;Surrogate-Assisted Multi-objective Evolutionary Optimization&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>DataDrivenEvolutionaryOptimiz ch6</title>
+      <link>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch6/</link>
+      <pubDate>Sat, 28 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/datadrivenevolutionaryoptimiz_ch6/</guid>
+      <description>&lt;p&gt;Multi-surrogate-Assisted Single-objective Optimization&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -59,6 +95,15 @@
       
       <guid>https://songlei.me/post/ai/automl%E8%B0%83%E7%A0%94/</guid>
       <description>&lt;p&gt;AutoML包含超参数优化HPO、神经网络架构搜索NAS、神经网络压缩、自动特征选择等多个部分。本文对HPO和NAS部分的一些论文和框架做一个整理。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MDN笔记</title>
+      <link>https://songlei.me/post/note/%E5%89%8D%E7%AB%AFmdn%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 24 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://songlei.me/post/note/%E5%89%8D%E7%AB%AFmdn%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;p&gt;学习一下网站搭建。&lt;/p&gt;</description>
     </item>
     
     <item>
